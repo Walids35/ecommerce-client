@@ -18,7 +18,8 @@ module.exports = {
         'purple':'#6788FF',
         'full-white':'#ffffff',
         "red":'#fc5d5d',
-        "green":'#86d8b4'
+        "green":'#86d8b4',
+        "blue":"#1F55D2"
       },
       backgroundImage: {
         'bg-blue': "url('../public/bg-blue.svg')",
