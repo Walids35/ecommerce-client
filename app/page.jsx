@@ -1,8 +1,9 @@
-import Image from 'next/image'
+import OverNav from "@/components/navbar/OverNav"
 
 export default function Home() {
   return (
     <>
+    <OverNav />
     </>
   )
 }
