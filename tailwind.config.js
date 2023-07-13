@@ -23,7 +23,8 @@ module.exports = {
       },
       backgroundImage: {
         'bg-blue': "url('../public/bg-blue.svg')",
-        'illustration':"url('../public/illustration.svg')"
+        'illustration':"url('../public/illustration.svg')",
+        'home-img':"url('../public/homeimg.svg')"
       },
       screens: {
         '2xl': '1600px'
