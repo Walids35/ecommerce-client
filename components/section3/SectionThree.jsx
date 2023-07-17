@@ -15,6 +15,11 @@ const SectionThree = () => {
           </div>
         </div>
       </div>
+      <div className="my-10 bg-sect4-img w-full text-center pt-40 text-white" style={{height: "500px"}}>
+        <p className="font-bold text-4xl">GET 5% CASH BACK ON 200$</p>
+        <p className="mt-2">Shopping is a bit of a relaxing hobby for me, which is sometimes troubling for the bank balance.</p>
+        <button className="text-white border-white border-2 mt-10 py-3 px-6 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:mt-8">Learn More</button>
+        </div>
     </>
   );
 };
