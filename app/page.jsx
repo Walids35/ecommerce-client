@@ -1,5 +1,6 @@
 import SectionOne from "@/components/section1/SectionOne"
 import SectionTwo from "@/components/section2/SectionTwo"
+import SectionThree from "@/components/section3/SectionThree"
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       </div>
       <SectionOne />
       <SectionTwo />
+      <SectionThree />
     </>
   )
 }
