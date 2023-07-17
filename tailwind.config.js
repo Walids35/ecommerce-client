@@ -24,7 +24,8 @@ module.exports = {
       backgroundImage: {
         'bg-blue': "url('../public/bg-blue.svg')",
         'illustration':"url('../public/illustration.svg')",
-        'home-img':"url('../public/homeimg.svg')"
+        'home-img':"url('../public/homeimg.svg')",
+        'sect4-img':"url('../public/section3.svg')"
       },
       screens: {
         '2xl': '1600px'
