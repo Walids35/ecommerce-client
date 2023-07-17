@@ -1,3 +1,4 @@
+import Footer from "@/components/footer/Footer"
 import SectionOne from "@/components/section1/SectionOne"
 import SectionTwo from "@/components/section2/SectionTwo"
 import SectionThree from "@/components/section3/SectionThree"
@@ -13,6 +14,7 @@ export default function Home() {
       <SectionOne />
       <SectionTwo />
       <SectionThree />
+      <Footer />
     </>
   )
 }
