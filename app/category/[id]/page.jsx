@@ -95,7 +95,7 @@ const page = () => {
                 <option>test</option>
             </select>
         </div>
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
         {productCards.map((product, index) => {
             return <ProductCard key={index} product={product} />
         })}

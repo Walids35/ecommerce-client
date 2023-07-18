@@ -1,12 +1,15 @@
 import Star from "../Star"
+import Link from "next/link"
 
 const ProductCard = ({key, product}) => {
   return (
     <>
         <div key={key}>
+            <Link href={`/product/${product.title}`} className="w-full hover:border-b-4 hover:border-black rounded-3xl transition-all duration-300">
             <div className=" bg-slate-200 rounded-3xl flex justify-center items-center py-10">
                 <img src="/headphone.svg" alt="" className="w-32" />
             </div>
+            </Link>
             <div className="flex justify-between mt-5">
                 <h1 className="font-bold text-xl">{product.title}</h1>
                 <p className="font-semibold text-lg text-blue">{product.price}£</p>
