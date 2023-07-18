@@ -5,7 +5,7 @@ const ProductCard = ({key, product}) => {
     <>
         <div key={key}>
             <div className=" bg-slate-200 rounded-3xl flex justify-center items-center py-10">
-                <img src="headphone.svg" alt="" className="w-32" />
+                <img src="/headphone.svg" alt="" className="w-32" />
             </div>
             <div className="flex justify-between mt-5">
                 <h1 className="font-bold text-xl">{product.title}</h1>

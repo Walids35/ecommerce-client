@@ -17,12 +17,11 @@ export default function NavBar() {
   return (
     <>
       <div className="h-20 bg-white flex items-center justify-between px-6 lg:px-24 xl:px-60 drop-shadow-md">
-        <img src="logo.svg" className="hidden sm:flex w-32" alt="logo" />
-        
+        <img src="/logo.svg" className="hidden sm:flex w-32" alt="logo"/>
         <div className="gap-5 font-semibold items-baseline hidden lg:flex">
           <Link
             className="text-sm font-semibold leading-6 text-gray-900"
-            href="/home"
+            href="/"
           >
             Home
           </Link>
