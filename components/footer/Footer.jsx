@@ -1,11 +1,11 @@
 const Footer = () => {
   return (
     <>
-      <div className="pb-20 px-10 sm:px-20 md:px-32 xl:px-60">
+      <div className="pb-20 px-10 sm:px-20 md:px-32 xl:px-60  bg-neutral-900 pt-10 text-white">
         <div className="w-full h-0.5 bg-slate-300 rounded-full"></div>
         <div className="grid p-10 grid-cols-1 gap-10 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
           <div className="col-span-2">
-            <img src="/mini-logo.svg" alt="" className="w-14" />
+            <img src="/mini-logo-white.svg" alt="" className="w-14 " />
             <p className="w-72 mt-5 text-sm">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
             <p className="mt-5 font-medium">Accepted Payments</p>
             <img src="/payment-methods.svg" className="w-40 mt-2" alt="" />
