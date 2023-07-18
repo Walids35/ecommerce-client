@@ -17,17 +17,8 @@ export default function NavBar() {
   return (
     <>
       <div className="h-20 bg-white flex items-center justify-between px-6 lg:px-24 xl:px-60 drop-shadow-md">
-        <img src="logo.svg" className="w-32" alt="logo" />
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
+        <img src="logo.svg" className="hidden sm:flex w-32" alt="logo" />
+        
         <div className="gap-5 font-semibold items-baseline hidden lg:flex">
           <Link
             className="text-sm font-semibold leading-6 text-gray-900"
@@ -44,7 +35,7 @@ export default function NavBar() {
             <p> Products</p>
           </Link>
         </div>
-        <div className="relative rounded-full bg-white sm:col-span-3 hidden lg:flex">
+        <div className="relative rounded-full bg-white sm:col-span-3">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
           </div>
@@ -63,6 +54,16 @@ export default function NavBar() {
             <ShoppingCartIcon className="w-8" />
             <p className="mt-1 font-semibold text-lg">({cart})</p>
           </Link>
+        </div>
+        <div className="flex lg:hidden">
+          <button
+            type="button"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            <span className="sr-only">Open main menu</span>
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
         </div>
         <DialogMobile
           mobileMenuOpen={mobileMenuOpen}
