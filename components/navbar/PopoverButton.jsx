@@ -8,31 +8,31 @@ const category = [
     {
       name: 'Ordinateur Portable',
       description: 'PC Portable - PC Portable Pro - PC Portable Gamer',
-      href: '##',
+      href: '/category/ordinateur-portable',
       icon: ComputerDesktopIcon,
     },
     {
       name: 'Accessoires et Peripheriques',
       description: 'Headphones - Sacoche - Mouse - Keyboard',
-      href: '##',
+      href: '/category/accessoires-et-peripheriques',
       icon: RectangleGroupIcon,
     },
     {
       name: 'Ordinateur de Bureau',
       description: 'Ecran - PC de Bureau - PC de Bureau Gamer',
-      href: '##',
+      href: '/category/ordinateur-de-bureau',
       icon: TvIcon,
     },
     {
       name: 'Composants Informatique',
       description: 'Disque Dur - Carte Mere - Carte Graphique',
-      href: '##',
+      href: '/category/composants-informatiques',
       icon: CpuChipIcon,
     },
     {
       name: 'Telephonie',
       description: 'Telephone Portable et Smartphone',
-      href: '##',
+      href: '/category/telephonie',
       icon: DevicePhoneMobileIcon,
     },
   ]

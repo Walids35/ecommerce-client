@@ -1,46 +1,60 @@
-import { Dialog, Disclosure} from '@headlessui/react'
-import {
-    ArrowPathIcon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    FingerPrintIcon,
-    SquaresPlusIcon,
-    XMarkIcon,
-  } from '@heroicons/react/24/outline'
-  import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { Dialog, Disclosure } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import {ChevronDownIcon} from "@heroicons/react/20/solid";
+import { CpuChipIcon, ComputerDesktopIcon, RectangleGroupIcon, TvIcon, DevicePhoneMobileIcon } from '@heroicons/react/24/solid'
 
 const products = [
-    { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-    { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-    { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-    { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-    { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-  ]
-
-const callsToAction = [
-    { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-    { name: 'Contact sales', href: '#', icon: PhoneIcon },
-]
-
+  {
+    name: "Ordinateur Portable",
+    description: "PC Portable - PC Portable Pro - PC Portable Gamer",
+    href: "##",
+    icon: ComputerDesktopIcon,
+  },
+  {
+    name: "Accessoires et Peripheriques",
+    description: "Headphones - Sacoche - Mouse - Keyboard",
+    href: "##",
+    icon: RectangleGroupIcon,
+  },
+  {
+    name: "Ordinateur de Bureau",
+    description: "Ecran - PC de Bureau - PC de Bureau Gamer",
+    href: "##",
+    icon: TvIcon,
+  },
+  {
+    name: "Composants Informatique",
+    description: "Disque Dur - Carte Mere - Carte Graphique",
+    href: "##",
+    icon: CpuChipIcon,
+  },
+  {
+    name: "Telephonie",
+    description: "Telephone Portable et Smartphone",
+    href: "##",
+    icon: DevicePhoneMobileIcon,
+  },
+];
 
 function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
+  return classes.filter(Boolean).join(" ");
+}
 
-const DialogMobile = ({mobileMenuOpen, setMobileMenuOpen}) => {
+const DialogMobile = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   return (
     <>
-    <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+      <Dialog
+        as="div"
+        className="lg:hidden"
+        open={mobileMenuOpen}
+        onClose={setMobileMenuOpen}
+      >
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="mini-logo.svg"
-                alt=""
-              />
+              <img className="h-8 w-auto" src="mini-logo.svg" alt="" />
             </a>
             <button
               type="button"
@@ -58,14 +72,17 @@ const DialogMobile = ({mobileMenuOpen, setMobileMenuOpen}) => {
                   {({ open }) => (
                     <>
                       <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                        Category
+                        Categories
                         <ChevronDownIcon
-                          className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+                          className={classNames(
+                            open ? "rotate-180" : "",
+                            "h-5 w-5 flex-none"
+                          )}
                           aria-hidden="true"
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...products, ...callsToAction].map((item) => (
+                        {products.map((item) => (
                           <Disclosure.Button
                             key={item.name}
                             as="a"
@@ -91,7 +108,7 @@ const DialogMobile = ({mobileMenuOpen, setMobileMenuOpen}) => {
         </Dialog.Panel>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
-export default DialogMobile
+export default DialogMobile;
