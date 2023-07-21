@@ -9,11 +9,13 @@ import {
 import { useState } from "react";
 import DialogMobile from "./DialogMobile";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useStore } from "../../store/store";
 
 export default function NavBar() {
-  const [cart, setCart] = useState(0);
+  // const [cart, setCart] = useState(0);
+  const cart = useStore((store) => store.cartProducts)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  
   return (
     <>
       <div className="h-20 bg-white flex items-center justify-between px-6 lg:px-24 xl:px-60 drop-shadow-md">
@@ -51,7 +53,7 @@ export default function NavBar() {
           </Link>
           <Link href="/cart" className="flex gap-2">
             <ShoppingCartIcon className="w-8" />
-            <p className="mt-1 font-semibold text-lg">({cart})</p>
+            <p className="mt-1 font-semibold text-lg">({cart.length})</p>
           </Link>
         </div>
         <div className="flex lg:hidden">

@@ -1,7 +1,12 @@
+"use client"
+import { useStore } from "@/store/store"
 import Star from "../Star"
 import Link from "next/link"
 
 const ProductCard = ({key, product}) => {
+
+  const addToCart = useStore((store) => store.addToCart)
+
   return (
     <>
         <div key={key}>
@@ -21,7 +26,7 @@ const ProductCard = ({key, product}) => {
                 <p className="text-blue">({product.reviewsNumber})</p>
                 </div>
             </div>
-            <button className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-black hover:text-white transition-all duration-300">Add To Cart</button>
+            <button onClick={() => addToCart(product)} className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-black hover:text-white transition-all duration-300">Add To Cart</button>
         </div>
     </>
   )
