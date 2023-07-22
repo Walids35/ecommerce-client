@@ -6,7 +6,7 @@ import {
   ShoppingCartIcon,
   Bars3Icon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DialogMobile from "./DialogMobile";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useStore } from "../../store/store";
@@ -14,8 +14,13 @@ import { useStore } from "../../store/store";
 export default function NavBar() {
   // const [cart, setCart] = useState(0);
   const cart = useStore((store) => store.cartProducts)
+  const getCartProducts = useStore((store) => store.getCartProducts)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
+  useEffect(() => {
+    getCartProducts()
+  },[getCartProducts])
+
   return (
     <>
       <div className="h-20 bg-white flex items-center justify-between px-6 lg:px-24 xl:px-60 drop-shadow-md">
