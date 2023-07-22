@@ -16,7 +16,7 @@ const SectionOne = () => {
     <>
       <div className="py-20 px-10 sm:px-20 md:px-32 xl:px-60">
         <h1 className=" font-semibold text-2xl">Shop our top categories</h1>
-        <div className="mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-10 md:flex xl:justify-between">
           {cards.map((card, index) => {
             return (
               <>
