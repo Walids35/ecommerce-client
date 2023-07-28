@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
  * /api/product/{id}:
  *   get:
  *     summary: Get products by category ID
+ *     tags: [cart]
  *     parameters:
  *       - name: id
  *         in: path

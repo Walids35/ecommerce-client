@@ -57,6 +57,7 @@ import { Types } from "mongoose";
  * /api/cart/{id}:
  *   get:
  *       summary: Retrieve products by id 
+ *       tags: [cart]
  *       parameters:
  *         - in: path
  *           name: id
