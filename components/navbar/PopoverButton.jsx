@@ -8,13 +8,13 @@ const category = [
     {
       name: 'Ordinateur Portable',
       description: 'PC Portable - PC Portable Pro - PC Portable Gamer',
-      href: '/category/ordinateur-portable',
+      href: '/category/64b57730c77e31b3067398fe',
       icon: ComputerDesktopIcon,
     },
     {
       name: 'Accessoires et Peripheriques',
       description: 'Headphones - Sacoche - Mouse - Keyboard',
-      href: '/category/accessoires-et-peripheriques',
+      href: '/category/64b5bf7e9675ed81b8afb815',
       icon: RectangleGroupIcon,
     },
     {
@@ -32,7 +32,7 @@ const category = [
     {
       name: 'Telephonie',
       description: 'Telephone Portable et Smartphone',
-      href: '/category/telephonie',
+      href: '/category/649859618d58b1d82eae1708',
       icon: DevicePhoneMobileIcon,
     },
   ]
