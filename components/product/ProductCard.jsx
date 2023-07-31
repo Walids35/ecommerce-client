@@ -12,7 +12,7 @@ const ProductCard = ({key, product}) => {
         <div key={key}>
             <Link href={`/product/${product.title}`} className="w-full hover:border-b-4 hover:border-black rounded-3xl transition-all duration-300">
             <div className=" bg-slate-200 rounded-3xl flex justify-center items-center py-10">
-                <img src="/headphone.svg" alt="" className="w-32" />
+                <img src={product.images ? (product.images[0]) : (product.title)} alt="" className="h-32" />
             </div>
             </Link>
             <div className="flex justify-between mt-5">
