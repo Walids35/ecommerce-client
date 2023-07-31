@@ -4,15 +4,15 @@ import ProductCard from '@/components/product/ProductCard'
 import Footer from '@/components/footer/Footer'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { mongooseConnect } from '@/lib/mongoose'
 
-const page = () => {
+export default function page (){
   const {id} = useParams()
   const [products, setProducts] = useState([])
 
   useEffect(() => (
     axios.get(`/api/product/${id}`).then((response) => {
       setProducts(response.data)
-      console.log(response.data)
     }).catch((error) => {
       console.log(error);
     })
@@ -52,4 +52,6 @@ const page = () => {
   )
 }
 
-export default page
+export async function getServerSideProps(){
+  await mongooseConnect();
+}
