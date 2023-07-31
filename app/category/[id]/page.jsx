@@ -2,76 +2,22 @@
 import { useParams } from 'next/navigation'
 import ProductCard from '@/components/product/ProductCard'
 import Footer from '@/components/footer/Footer'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const page = () => {
   const {id} = useParams()
-  const newId = id.replaceAll("-"," ").toUpperCase()
+  const [products, setProducts] = useState([])
 
-  const productCards = [
-    {
-      title: "JBL Pro 2",
-      price: 200.99,
-      description: "Noise Cancellation Feature",
-      stars: 4,
-      reviewsNumber: 121,
-    },
-    {
-      title: "JBL Pro 2",
-      price: 200.99,
-      description: "Noise Cancellation Feature",
-      stars: 4,
-      reviewsNumber: 121,
-    },
-    {
-      title: "JBL Pro 2",
-      price: 200.99,
-      description: "Noise Cancellation Feature",
-      stars: 4,
-      reviewsNumber: 121,
-    },
-    {
-        title: "JBL Pro 2",
-        price: 200.99,
-        description: "Noise Cancellation Feature",
-        stars: 4,
-        reviewsNumber: 121,
-      },
-      {
-        title: "JBL Pro 2",
-        price: 200.99,
-        description: "Noise Cancellation Feature",
-        stars: 4,
-        reviewsNumber: 121,
-      },
-      {
-        title: "JBL Pro 2",
-        price: 200.99,
-        description: "Noise Cancellation Feature",
-        stars: 4,
-        reviewsNumber: 121,
-      },
-      {
-        title: "JBL Pro 2",
-        price: 200.99,
-        description: "Noise Cancellation Feature",
-        stars: 4,
-        reviewsNumber: 121,
-      },
-      {
-        title: "JBL Pro 2",
-        price: 200.99,
-        description: "Noise Cancellation Feature",
-        stars: 4,
-        reviewsNumber: 121,
-      },
-      {
-        title: "JBL Pro 2",
-        price: 200.99,
-        description: "Noise Cancellation Feature",
-        stars: 4,
-        reviewsNumber: 121,
-      },
-  ];
+  useEffect(() => (
+    axios.get(`/api/product/${id}`).then((response) => {
+      setProducts(response.data)
+      console.log(response.data)
+    }).catch((error) => {
+      console.log(error);
+    })
+  ),[])
+  const newId = id.replaceAll("-"," ").toUpperCase()
   
   return (
     <>
@@ -96,9 +42,9 @@ const page = () => {
             </select>
         </div>
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
-        {productCards.map((product, index) => {
+        {products.length > 0 ? products.map((product, index) => {
             return <ProductCard key={index} product={product} />
-        })}
+        }) : (<div>Waiting ...</div>)}
         </div>
     </div>
     <Footer />
