@@ -11,10 +11,18 @@ const CartComponent = () => {
 
   const delivery = 7;
   let articles_price = 0;
-  cart.forEach(element => {
-    articles_price += element.price
-  });
-  const totalPrice = delivery + articles_price;
+
+  const calculateTTC = () => {
+    if(cart.length == 0) return;
+    cart.forEach(element => {
+      articles_price += element.price
+    })
+    const totalPrice = delivery + articles_price
+    return totalPrice;
+  }
+
+  const totalPrice = calculateTTC()
+
 
   return (
     <>
