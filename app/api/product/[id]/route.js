@@ -1,6 +1,7 @@
 import { Product } from "@/models/Product";
 import { mongooseConnect } from "@/lib/mongoose";
 import { NextResponse } from "next/server";
+import { Category } from "@/models/Category";
  /**
  * @swagger
  * /api/product/{id}:
@@ -30,11 +31,28 @@ import { NextResponse } from "next/server";
  *             schema:
  *               $ref: '#/components/schemas/Product'
  */
+
+ async function getProductsByCategory(categoryID) {
+  return await Product.find( {category: categoryID}).exec()
+ }
+
+ async function getProductsByCategoryAndChildren(categoryId){
+  const products = await getProductsByCategory(categoryId)
+  const children = await Category.find({ parent: categoryId })
+
+  for (const child of children){
+    const childProducts = await getProductsByCategoryAndChildren(child._id)
+    products.push(...childProducts)
+  }
+
+  return products
+ }
+
  export async function GET(req, { params }) {
     try {
       await mongooseConnect();
-      const {id} = params;
-      const products = await Product.find({ category: id });
+      const { id } = params;
+      const products = await getProductsByCategoryAndChildren(id)
       return NextResponse.json(products);
     } catch (error) {
       return NextResponse.json({ error: error.message });
