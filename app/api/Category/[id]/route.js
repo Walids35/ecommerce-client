@@ -74,7 +74,7 @@ export async function GET(req, { params }) {
   try {
     const {id} = params;
     await mongooseConnect();
-    const category = await Category.find( { _id : id });
+    const category = await Category.find( { _id : id }).populate("parent");
 
     return NextResponse.json(category);
   } catch (error) {
