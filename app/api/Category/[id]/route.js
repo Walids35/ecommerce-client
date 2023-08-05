@@ -35,7 +35,7 @@
 
 /**
  * @swagger
- * /api/Category/{id}:
+ * /api/category/{id}:
  *   get:
  *     summary: Get a category by ID
  *     tags: [Categories]
