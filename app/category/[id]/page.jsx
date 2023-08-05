@@ -4,6 +4,7 @@ import ProductCard from "@/components/product/ProductCard";
 import Footer from "@/components/footer/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import HeaderLoading from "@/components/loading/HeaderLoading";
 
 export default function page() {
   const { id } = useParams();
@@ -53,7 +54,8 @@ export default function page() {
   return (
     <>
       <div className="px-10 py-10 sm:px-10 md:px-32 lg:px-60">
-        <h1 className="font-bold text-3xl">{category && category.name}</h1>
+        {category.name ? <>
+          <h1 className="font-bold text-3xl">{category && category.name}</h1>
         <h2 className="font-semibold text-xl">Today's Best Deals For You !</h2>
         <div className="mt-5 flex gap-8">
           {propertiesToFill.map((property, index) => {
@@ -63,14 +65,28 @@ export default function page() {
               })}
             </select>)
           })}
-        </div>
+          </div>
+        </> :(<HeaderLoading />)}
+        
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
           {products.length > 0 ? (
             products.map((product, index) => {
               return <ProductCard product={product} />;
             })
           ) : (
-            <div>Waiting ...</div>
+            Array.from({ length: 9 }, (_, index) => (
+              <>
+                <div>
+                    <div className="bg-slate-500 opacity-20 h-52"></div>
+                    <div className="h-5 w-full bg-slate-500 opacity-20 mt-3"></div>
+                    <div className="h-3 w-full bg-slate-500 opacity-20 mt-3"></div>
+                    <div className="h-3 w-full bg-slate-500 opacity-20 mt-3"></div>
+                    <div className="h-3 w-full bg-slate-500 opacity-20 mt-3"></div>
+                    <div className="h-3 w-full bg-slate-500 opacity-20 mt-3"></div>
+                    <div className="h-5 w-1/3 bg-slate-500 opacity-20 mt-3"></div>
+                </div>
+              </>
+            ))
           )}
         </div>
       </div>
