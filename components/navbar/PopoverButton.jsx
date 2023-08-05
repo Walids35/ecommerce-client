@@ -8,7 +8,7 @@ const category = [
     {
       name: 'Ordinateur Portable',
       description: 'PC Portable - PC Portable Pro - PC Portable Gamer',
-      href: '/category/64b57730c77e31b3067398fe',
+      href: '/category/64b5771bc77e31b3067398f9',
       icon: ComputerDesktopIcon,
     },
     {
