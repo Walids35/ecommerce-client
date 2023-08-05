@@ -35,13 +35,6 @@ export default function page() {
     }
   }
 
-  async function fetchProducts() {
-    const products = await axios.get(`/api/product/${id}`).then((response) => response.data).catch((error) => error);
-     
-  }
-
-  fetchProducts()
-
   useEffect(
     () => (
       axios
