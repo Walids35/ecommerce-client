@@ -6,8 +6,15 @@ import { TruckIcon, GiftIcon } from "@heroicons/react/24/outline";
 import { useStore } from "@/store/store";
 
 const CartComponent = () => {
+
   const cart = useStore((state) => state.cartProducts);
-  console.log(cart);
+
+  const delivery = 7;
+  let articles_price = 0;
+  cart.forEach(element => {
+    articles_price += element.price
+  });
+  const totalPrice = delivery + articles_price;
 
   return (
     <>
@@ -15,19 +22,19 @@ const CartComponent = () => {
         <h1 className="font-bold text-3xl">Cart</h1>
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
           <div className="md:col-span-2">
-            <table className="mt-5 border w-full border-gray-300">
-              <tr>
-                <th className="p-2 text-start text-xl">Cart</th>
-              </tr>
+            <div className="mt-5 border w-full border-gray-300">
+              <div>
+                <div className="p-2 text-start text-xl">Cart</div>
+              </div>
               <hr></hr>
-              <tr>
+              <div>
                 {cart.map((product, index) => {
                   return (
-                    <ProductCart product={product} />
+                    <ProductCart key={index} product={product} />
                   )
                 })}
-              </tr>
-            </table>
+              </div>
+            </div>
             <div className="mt-8">
               <Link href="/" className="bg-blue text-white mt-10 px-6 py-3">
                 Continue Shopping
@@ -40,20 +47,20 @@ const CartComponent = () => {
                 <div className="text-start font-normal p-5">
                   <div className="flex justify-between">
                     <p>Articles</p>
-                    <p>200.99£</p>
+                    <p>{articles_price}£</p>
                   </div>
                   <div className="flex justify-between">
                     <p>Discount</p>
-                    <p>0</p>
+                    <p>0£</p>
                   </div>
                   <div className="flex justify-between">
                     <p>Delivery</p>
-                    <p>7.00£</p>
+                    <p>{delivery}£</p>
                   </div>
                   <hr className="my-5"></hr>
                   <div className="flex text-blue font-semibold justify-between">
                     <p>Total TTC</p>
-                    <p>207.99£</p>
+                    <p>{totalPrice}£</p>
                   </div>
                   <hr className="my-5"></hr>
                   <Link
