@@ -15,6 +15,7 @@ export default function NavBar() {
   // const [cart, setCart] = useState(0);
   const cart = useStore((store) => store.cartProducts)
   const getCartProducts = useStore((store) => store.getCartProducts)
+  const clearCart = useStore((store) => store.clearCart)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   useEffect(() => {
@@ -60,6 +61,7 @@ export default function NavBar() {
             <ShoppingCartIcon className="w-8" />
             <p className="mt-1 font-semibold text-lg">({cart.length})</p>
           </Link>
+          <button onClick={clearCart}>clear</button>
         </div>
         <div className="flex lg:hidden">
           <button
