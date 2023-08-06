@@ -6,10 +6,12 @@ import {
   ShoppingCartIcon,
   Bars3Icon,
 } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import DialogMobile from "./DialogMobile";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useStore } from "../../store/store";
+import axios from "axios";
+
 
 export default function NavBar() {
   // const [cart, setCart] = useState(0);
@@ -17,10 +19,46 @@ export default function NavBar() {
   const getCartProducts = useStore((store) => store.getCartProducts)
   const clearCart = useStore((store) => store.clearCart)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const searchBarRef = useRef(null);
   
   useEffect(() => {
     getCartProducts()
   },[getCartProducts])
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      // Check if the click occurred outside the search bar
+      if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+        setShowResults(false);
+      }
+    };
+
+    // Add event listener on mount
+    document.addEventListener("click", handleOutsideClick);
+
+    // Clean up the event listener on unmount
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
+  
+  const handleSearch = async () => {
+    try {
+      // Make the API request using Axios
+      const response = await axios.get(`/api/search?searchQuery=${searchQuery}`);
+      const data = response.data;
+      setSearchResults(data); // Update the state with the search results
+      setShowResults(true);
+      // Assuming the API response is an array of products
+      console.log(data); // Do something with the response data
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -42,16 +80,40 @@ export default function NavBar() {
             <p> Products</p>
           </Link>
         </div>
-        <div className="relative rounded-full bg-white sm:col-span-3">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
-          </div>
-          <input
-            type="text"
-            className="pl-10 pr-3 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue"
-            placeholder="Search..."
-          />
+        <div className="relative rounded-full bg-white sm:col-span-3" ref={searchBarRef}>
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
         </div>
+        <input
+          type="text"
+          className="pl-10 pr-3 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button
+          className="absolute top-0 right-0 px-3 py-2 bg-blue-500 text-black rounded-r-full focus:outline-none"
+          onClick={handleSearch}
+        >
+          Search
+        </button>
+        {showResults && (
+          <div className="absolute top-full mt-2 bg-white w-full border border-gray-300 rounded-md shadow-lg z-10">
+            {searchResults.map((product) => (
+              <div key={product._id} className="flex px-4 py-2">
+                <img
+                  src={product.images[0]} 
+                  alt={product.title}
+                  className="w-16 h-16 mr-4 rounded-md"
+                />
+                <div className="flex flex-col">
+                  <h3 className="text-gray-900 font-medium">{product.title}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
         <div className="h-1/2 w-0.5 bg-black hidden lg:flex"></div>
         <div className="gap-10 hidden lg:flex">
           <Link href="/account">
