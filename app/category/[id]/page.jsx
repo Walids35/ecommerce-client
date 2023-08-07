@@ -36,20 +36,21 @@ export default function page() {
     }
   }
 
-  useEffect(
-    () => (
-      axios
+  useEffect(() => {
+    fetchCategory()
+    fetchProducts()
+  },[])
+
+  async function fetchProducts(){
+    axios
         .get(`/api/product/${id}`)
         .then((response) => {
           setProducts(response.data);
         })
         .catch((error) => {
           console.log(error);
-        }),
-      fetchCategory()
-    ),
-    []
-  );
+        })
+  }
 
   return (
     <>
