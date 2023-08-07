@@ -2,6 +2,7 @@
 import { useStore } from "@/store/store";
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const CartForm = () => {
   const [name, setName] = useState("");
@@ -11,6 +12,7 @@ const CartForm = () => {
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
   const cartProducts = useStore((store) => store.cartProducts);
+  const router = useRouter();
 
   const handleSubmit = async(e) => {
     e.preventDefault()
@@ -27,7 +29,9 @@ const CartForm = () => {
     try{
         console.log(data)
         const response = await axios.post("/api/checkout", data)
-        console.log(response.data)
+        const url = response.data.url
+        console.log(url)
+        router.push(url)
     }catch(error){
         console.log(error)
     }
