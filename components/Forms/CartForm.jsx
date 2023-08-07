@@ -1,6 +1,7 @@
 "use client";
 import { useStore } from "@/store/store";
 import { useState } from "react";
+import axios from "axios";
 
 const CartForm = () => {
   const [name, setName] = useState("");
@@ -11,7 +12,8 @@ const CartForm = () => {
   const [country, setCountry] = useState("");
   const cartProducts = useStore((store) => store.cartProducts);
 
-  const handleSubmit = () => {
+  const handleSubmit = async(e) => {
+    e.preventDefault()
     const data = {
       name,
       email,
@@ -19,13 +21,21 @@ const CartForm = () => {
       postalCode,
       streetAddress,
       country,
+      cartProducts
     };
-    console.log(data);
+
+    try{
+        console.log(data)
+        const response = await axios.post("/api/checkout", data)
+        console.log(response.data)
+    }catch(error){
+        console.log(error)
+    }
   };
 
   return (
     <div className="w-full mt-5 border border-gray-300">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <p className="p-3 font-medium">Personal Information</p>
         <hr></hr>
         <div className="px-8 py-5">
