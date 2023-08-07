@@ -11,9 +11,9 @@ const store = ((set) => ({
     }
   },
 
-  addToCart: (product) => {
+  addToCart: (productId) => {
     set((state) => {
-      const updatedProducts = [...state.cartProducts, product];
+      const updatedProducts = [...state.cartProducts, productId];
       localStorage.setItem("cartProducts", JSON.stringify(updatedProducts));
       return { cartProducts: updatedProducts };
     });
