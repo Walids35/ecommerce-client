@@ -26,7 +26,7 @@ const ProductCard = ({key, product}) => {
                 <p className="text-blue">({product.reviewsNumber})</p>
                 </div>
             </div>
-            <button onClick={() => addToCart(product)} className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-black hover:text-white transition-all duration-300">Add To Cart</button>
+            <button onClick={() => addToCart(product._id)} className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-black hover:text-white transition-all duration-300">Add To Cart</button>
         </div>
     </>
   )
