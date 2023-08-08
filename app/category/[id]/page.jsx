@@ -55,7 +55,7 @@ export default function page() {
   return (
     <>
       <div className="px-10 py-10 sm:px-10 md:px-32 lg:px-60">
-        {category.name ? <>
+        {category && category.name ? <>
           <h1 className="font-bold text-3xl">{category && category.name}</h1>
         <h2 className="font-semibold text-xl">Today's Best Deals For You !</h2>
         <div className="mt-5 flex gap-8">
