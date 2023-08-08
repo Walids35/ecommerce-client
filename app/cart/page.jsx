@@ -9,48 +9,48 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const CartComponent = () => {
-
   const cart = useStore((state) => state.cartProducts);
-  const [products, setProducts] = useState([])
+  const clearCart = useStore((state) => state.clearCart);
+  const [products, setProducts] = useState([]);
 
   const delivery = 7;
   const discount = 0;
   let articles_price = 0;
 
   const calculateTTC = () => {
-   products.forEach(product => {
-    const productPrice = product.price
-    const quantity = cart.filter(id => product._id === id).length
-    articles_price += productPrice * quantity
-   })
-   const total_price = articles_price + delivery - discount
-   return total_price
-  }
-  
-  const total_price = calculateTTC()
+    products.forEach((product) => {
+      const productPrice = product.price;
+      const quantity = cart.filter((id) => product._id === id).length;
+      articles_price += productPrice * quantity;
+    });
+    const total_price = articles_price + delivery - discount;
+    return total_price;
+  };
+
+  const total_price = calculateTTC();
 
   useEffect(() => {
-    const fetch = async() => {
-      try{
+    const fetch = async () => {
+      try {
         const response = await axios.post("/api/cart", cart);
-        setProducts(response.data)
-      }catch(error){
-        console.error("error:", error)
+        setProducts(response.data);
+      } catch (error) {
+        console.error("error:", error);
       }
-    }
+    };
 
-    fetch()
-  },[])
+    fetch();
+  }, []);
 
   return (
     <>
       <div className="px-10 py-10 sm:px-10 md:px-32 lg:px-60">
         <h1 className="font-bold text-3xl">Cart</h1>
         <div className="mt-8">
-              <Link href="/" className="bg-blue text-white mt-10 px-6 py-3">
-               &lt; Continue Shopping
-              </Link>
-            </div>
+          <Link href="/" className="bg-blue text-white mt-10 px-6 py-3">
+            &lt; Continue Shopping
+          </Link>
+        </div>
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
           <div className="md:col-span-2">
             <div className="mt-5 border w-full border-gray-300">
@@ -59,15 +59,26 @@ const CartComponent = () => {
               </div>
               <hr></hr>
               <div>
-                {products && products.length > 0 && products.map((product, index) => {
-                  return (
-                    <ProductCart key={index} product={product} />
-                  )
-                })}
+                {products &&
+                  products.length > 0 &&
+                  products.map((product, index) => {
+                    return <ProductCart key={index} product={product} />;
+                  })}
               </div>
+              <hr></hr>
+              {cart && cart.length > 0 && (
+                <div className="p-3">
+                  <button
+                    type="button"
+                    onClick={clearCart}
+                    className="border border-black px-3 py-2 hover:bg-black hover:text-white transition-all duration-300"
+                  >
+                    Clear Cart
+                  </button>
+                </div>
+              )}
             </div>
             <CartForm />
-            
           </div>
           <div>
             <div className="mt-5 border w-full border-gray-300 ">
