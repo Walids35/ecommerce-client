@@ -123,7 +123,6 @@ export default function NavBar() {
             <ShoppingCartIcon className="w-8" />
             <p className="mt-1 font-semibold text-lg">({cart.length})</p>
           </Link>
-          <button onClick={clearCart}>clear</button>
         </div>
         <div className="flex lg:hidden">
           <button
