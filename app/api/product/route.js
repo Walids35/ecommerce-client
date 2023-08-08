@@ -40,7 +40,6 @@ export async function GET(req) {
     await mongooseConnect();
     const { query } = url.parse(req.url, true);
     const propertiesObj = JSON.parse(decodeURIComponent(query?.properties));
-    console.log("prop:", propertiesObj); 
     const filter = {
       $and: Object.entries(propertiesObj).map(([key, value]) => {
         // Create a case-insensitive regex pattern for partial matching
@@ -50,10 +49,7 @@ export async function GET(req) {
         };
       }),
     };
-
-    console.log("filter:",filter);
     const products = await Product.find(filter);
-    console.log("prod:", products);
     return NextResponse.json(products);
   } catch (error) {
     return NextResponse.json({ error: error.message });
