@@ -59,8 +59,7 @@ const CartComponent = () => {
               </div>
               <hr></hr>
               <div>
-                {products &&
-                  products.length > 0 ?
+                {cart.length > 0 ?
                   products.map((product, index) => {
                     return <ProductCart key={index} product={product} />;
                   }) : (
