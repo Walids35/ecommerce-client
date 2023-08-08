@@ -27,17 +27,16 @@ const CartComponent = () => {
 
   const totalPrice = calculateTTC()
 
-  const fetch = async() => {
-    try{
-      const response = await axios.post("/api/cart", cart);
-      console.log(response.data)
-      setProducts(response.data)
-    }catch(error){
-      console.error("error:", error)
-    }
-  }
-
   useEffect(() => {
+    const fetch = async() => {
+      try{
+        const response = await axios.post("/api/cart", cart);
+        setProducts(response.data)
+      }catch(error){
+        console.error("error:", error)
+      }
+    }
+
     fetch()
   },[])
 
