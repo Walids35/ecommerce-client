@@ -60,10 +60,17 @@ const CartComponent = () => {
               <hr></hr>
               <div>
                 {products &&
-                  products.length > 0 &&
+                  products.length > 0 ?
                   products.map((product, index) => {
                     return <ProductCart key={index} product={product} />;
-                  })}
+                  }) : (
+                    <>
+                    <div className="w-full flex flex-col items-center py-10">
+                      <img src="/Illustrations/warning.svg" alt="" className="w-52" />
+                      <p className="mt-3 font-medium text-blue">Your Cart is Empty !</p>
+                    </div>
+                    </>
+                  )}
               </div>
               <hr></hr>
               {cart && cart.length > 0 && (
@@ -81,6 +88,7 @@ const CartComponent = () => {
             <CartForm />
           </div>
           <div>
+            {cart && cart.length > 0 &&
             <div className="mt-5 border w-full border-gray-300 ">
               <div>
                 <div className="text-start font-normal p-5">
@@ -104,6 +112,7 @@ const CartComponent = () => {
                 </div>
               </div>
             </div>
+            }
             <div className="border border-gray-300 flex items-center gap-4 mt-5 rounded-md py-2 px-5 border-l-8 border-l-black">
               <TruckIcon className="text-black w-8" />
               <p className="font-medium text-sm">Delivery All Over Tunisia</p>
