@@ -11,6 +11,7 @@ const CartForm = () => {
   const [postalCode, setPostalCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
+  const [validation, setValidation] = useState(false)
   const cartProducts = useStore((store) => store.cartProducts);
   const router = useRouter();
 
@@ -28,9 +29,9 @@ const CartForm = () => {
 
     try{
         console.log(data)
+        setValidation(true)
         const response = await axios.post("/api/checkout", data)
         const url = response.data.url
-        console.log(url)
         router.push(url)
     }catch(error){
         console.log(error)
@@ -114,7 +115,7 @@ const CartForm = () => {
             onChange={(e) => setStreetAddress(e.target.value)}
             className=" bg-white mb-3 block w-full md:w-1/2 xl:w-1/3 border-0 p-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />
-          <button type="submit" className="bg-blue text-white px-6 py-3">Order Now &#62;</button>
+          <button type="submit" disabled={validation} className="bg-blue disabled:bg-blue-hover disabled:curso-progress-not-allowed text-white px-6 py-3">Order Now &#62;</button>
         </div>
       </form>
     </div>
