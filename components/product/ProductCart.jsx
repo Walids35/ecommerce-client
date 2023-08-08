@@ -9,16 +9,16 @@ const ProductCart = ({product}) => {
   return (
     <>
         <div className="flex p-10 justify-around" key={product._id}>
-            <img src="" alt="" className="w-16 h-16" />
+            <img src={product.images[0]} alt="" className="w-16 h-16" />
             <div>
                 <h1>{product.title}</h1>
                 <p className="font-medium text-purple">{product.price}£</p>
                 <p className="font-normal text-sm hidden md:block">[{product._id}]</p>
             </div>
             <div className="text-start font-normal">
-                <p>{totalPrice}£</p>
+                <p>{product.price}£</p>
                 <div className="flex">
-                    <p className="py-2 px-5 bg-gray-200">{product.quantity}</p>
+                    <p className="py-2 px-5 bg-gray-200">1</p>
                     <button className="border py-2 px-5 hover:bg-slate-200">+</button>
                     <button className="border py-2 px-5 hover:bg-slate-200">-</button>
                 </div>
