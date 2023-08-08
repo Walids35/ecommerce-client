@@ -101,13 +101,6 @@ const CartComponent = () => {
                     <p>Total TTC</p>
                     <p>{total_price}£</p>
                   </div>
-                  <hr className="my-5"></hr>
-                  <Link
-                    href="/"
-                    className="bg-blue text-white mt-10 px-10 py-3"
-                  >
-                    Shop
-                  </Link>
                 </div>
               </div>
             </div>
