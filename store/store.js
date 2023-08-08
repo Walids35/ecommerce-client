@@ -21,9 +21,11 @@ const store = ((set) => ({
 
   removeFromCart: (productId) => {
     set((state) => {
-      const updatedProducts = state.cartProducts.filter(
-        (product) => product.id !== productId
-      );
+      const index = state.cartProducts.indexOf(productId)
+      const cartP = [...state.cartProducts]
+      console.log("Old Array:", cartP)
+      const updatedProducts = cartP.splice(index, 1)
+      console.log("Updated Array:",updatedProducts)
       localStorage.setItem("cartProducts", JSON.stringify(updatedProducts));
       return { cartProducts: updatedProducts };
     });
