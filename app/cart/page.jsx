@@ -14,18 +14,20 @@ const CartComponent = () => {
   const [products, setProducts] = useState([])
 
   const delivery = 7;
+  const discount = 0;
   let articles_price = 0;
 
   const calculateTTC = () => {
-    if(cart.length == 0) return;
-    cart.forEach(element => {
-      articles_price += element.price
-    })
-    const totalPrice = delivery + articles_price
-    return totalPrice;
+   products.forEach(product => {
+    const productPrice = product.price
+    const quantity = cart.filter(id => product._id === id).length
+    articles_price += productPrice * quantity
+   })
+   const total_price = articles_price + delivery - discount
+   return total_price
   }
-
-  const totalPrice = calculateTTC()
+  
+  const total_price = calculateTTC()
 
   useEffect(() => {
     const fetch = async() => {
@@ -77,7 +79,7 @@ const CartComponent = () => {
                   </div>
                   <div className="flex justify-between">
                     <p>Discount</p>
-                    <p>0£</p>
+                    <p>{discount}£</p>
                   </div>
                   <div className="flex justify-between">
                     <p>Delivery</p>
@@ -86,7 +88,7 @@ const CartComponent = () => {
                   <hr className="my-5"></hr>
                   <div className="flex text-blue font-semibold justify-between">
                     <p>Total TTC</p>
-                    <p>{totalPrice}£</p>
+                    <p>{total_price}£</p>
                   </div>
                   <hr className="my-5"></hr>
                   <Link
