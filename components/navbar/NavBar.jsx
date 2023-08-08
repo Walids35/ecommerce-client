@@ -12,6 +12,20 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useStore } from "../../store/store";
 import axios from "axios";
 
+const useClickOutside = (ref, handler) => {
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        handler();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, handler]);
+};
 
 export default function NavBar() {
   // const [cart, setCart] = useState(0);
@@ -23,42 +37,38 @@ export default function NavBar() {
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const searchBarRef = useRef(null);
+  const [displayEmptyResults, setDisplayEmptyResults] = useState(false);
   
   useEffect(() => {
     getCartProducts()
   },[getCartProducts])
 
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      // Check if the click occurred outside the search bar
-      if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+  useClickOutside(searchBarRef, () => {
+    setShowResults(false);
+  });
+
+ useEffect(() => {
+    if (searchQuery.trim() !== "") {
+      const fetchSearchResults = async () => {
+        try {
+          const response = await axios.get(`/api/search?searchQuery=${searchQuery}`);
+          const data = response.data;
+          setSearchResults(data);
+          setShowResults(true);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchSearchResults();
+      setDisplayEmptyResults(false);
+    } else {
+      if (showResults) {
         setShowResults(false);
       }
-    };
-
-    // Add event listener on mount
-    document.addEventListener("click", handleOutsideClick);
-
-    // Clean up the event listener on unmount
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
-
-  
-  const handleSearch = async () => {
-    try {
-      // Make the API request using Axios
-      const response = await axios.get(`/api/search?searchQuery=${searchQuery}`);
-      const data = response.data;
-      setSearchResults(data); // Update the state with the search results
-      setShowResults(true);
-      // Assuming the API response is an array of products
-      console.log(data); // Do something with the response data
-    } catch (error) {
-      console.error(error);
+      setSearchResults([]);
+      setDisplayEmptyResults(true);
     }
-  };
+  }, [searchQuery, showResults]);
 
   return (
     <>
@@ -91,12 +101,6 @@ export default function NavBar() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button
-          className="absolute top-0 right-0 px-3 py-2 bg-blue-500 text-black rounded-r-full focus:outline-none"
-          onClick={handleSearch}
-        >
-          Search
-        </button>
         {showResults && (
           <div className="absolute top-full mt-2 bg-white w-full border border-gray-300 rounded-md shadow-lg z-10">
             {searchResults.map((product) => (
