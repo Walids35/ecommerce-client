@@ -5,10 +5,13 @@ import Link from "next/link";
 import { TruckIcon, GiftIcon } from "@heroicons/react/24/outline";
 import { useStore } from "@/store/store";
 import CartForm from "@/components/Forms/CartForm";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const CartComponent = () => {
 
   const cart = useStore((state) => state.cartProducts);
+  const [products, setProducts] = useState([])
 
   const delivery = 7;
   let articles_price = 0;
@@ -24,6 +27,19 @@ const CartComponent = () => {
 
   const totalPrice = calculateTTC()
 
+  const fetch = async() => {
+    try{
+      const response = await axios.post("/api/cart", cart);
+      console.log(response.data)
+      setProducts(response.data)
+    }catch(error){
+      console.error("error:", error)
+    }
+  }
+
+  useEffect(() => {
+    fetch()
+  },[])
 
   return (
     <>
@@ -42,7 +58,7 @@ const CartComponent = () => {
               </div>
               <hr></hr>
               <div>
-                {cart.map((product, index) => {
+                {products && products.length > 0 && products.map((product, index) => {
                   return (
                     <ProductCart key={index} product={product} />
                   )
