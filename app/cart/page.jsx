@@ -40,7 +40,38 @@ const CartComponent = () => {
     };
 
     fetch();
-  }, []);
+  }, [cart]);
+
+  if(window.location.href.includes("success")){
+    useEffect(() => {
+      clearCart()
+      setProducts([])
+    },[])
+    return(
+      <>
+        <div className=" font-semibold w-full flex flex-col items-center justify-center" style={{height: "80vh"}}>
+          <img src="/Illustrations/successful-purchase.svg" alt="" className="w-80" />
+          <h1 className="mt-5">Thanks for the order !</h1>
+          <p>We will email you when the order will be sent.</p>
+          <Link href="/" className="font-normal bg-blue text-white px-3 py-2 mt-5  hover:bg-white hover:text-blue transition-all duration-300 hover:border-blue hover:border">	&lt; Go Back Home</Link>
+        </div>
+      </>
+    )
+  }
+
+  if(window.location.href.includes("canceled")){
+    return(
+      <>
+        <div className=" font-semibold w-full flex flex-col items-center justify-center" style={{height: "80vh"}}>
+          <img src="/Illustrations/cancel.svg" alt="" className="w-80" />
+          <h1 className="mt-5">An error has occured !</h1>
+          <p>You have canceled your order. Please try again !</p>
+          <Link href="/" className="font-normal bg-blue text-white px-3 py-2 mt-5  hover:bg-white hover:text-blue transition-all duration-300 hover:border-blue hover:border">	&lt; Go Back Home</Link>
+        </div>
+      </>
+    )
+  }
+
 
   return (
     <>
