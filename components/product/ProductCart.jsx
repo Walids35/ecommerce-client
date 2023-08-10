@@ -1,7 +1,7 @@
 import { TrashIcon } from "@heroicons/react/24/solid"
 import { useStore } from "@/store/store"
 
-const ProductCart = ({product}) => {
+const ProductCart = ({product, loading}) => {
 
   const cart = useStore((store) => store.cartProducts)
   const deleteFromCart = useStore((store) => store.removeFromCart); 
@@ -10,6 +10,10 @@ const ProductCart = ({product}) => {
   const productQuantity = () => {
     return cart.filter(id => id === product._id).length
   } 
+
+  if(loading){
+    return <div>Loading ...</div>
+  }
 
   return (
     <>

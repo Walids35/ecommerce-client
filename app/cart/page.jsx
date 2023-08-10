@@ -12,6 +12,7 @@ const CartComponent = () => {
   const cart = useStore((state) => state.cartProducts);
   const clearCart = useStore((state) => state.clearCart);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   const delivery = 7;
   const discount = 0;
@@ -34,6 +35,7 @@ const CartComponent = () => {
       try {
         const response = await axios.post("/api/cart", cart);
         setProducts(response.data);
+        setLoading(false)
       } catch (error) {
         console.error("error:", error);
       }
@@ -92,7 +94,7 @@ const CartComponent = () => {
               <div>
                 {cart.length > 0 ?
                   products.map((product, index) => {
-                    return <ProductCart key={index} product={product} />;
+                    return <ProductCart key={index} product={product} loading={loading} />;
                   }) : (
                     <>
                     <div className="w-full flex flex-col items-center py-10">
