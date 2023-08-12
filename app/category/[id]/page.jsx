@@ -24,7 +24,7 @@ export default function page() {
       }
       try{
         console.log("Sended Data to '/api/product': ", data)
-        const response = await axios.get("/api/product", data);
+        const response = await axios.post("/api/product", data);
         console.log(response.data)
       }catch(error){
         console.log(error)
