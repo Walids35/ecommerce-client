@@ -5,6 +5,7 @@ import {
   UserIcon,
   ShoppingCartIcon,
   Bars3Icon,
+  HeartIcon 
 } from "@heroicons/react/24/outline";
 import { useEffect, useState,useRef } from "react";
 import DialogMobile from "./DialogMobile";
@@ -126,6 +127,9 @@ export default function NavBar() {
           <Link href="/cart" className="flex gap-2">
             <ShoppingCartIcon className="w-8" />
             <p className="mt-1 font-semibold text-lg">({cart.length})</p>
+          </Link>
+          <Link href="/wishlist" className="flex gap-3">
+          <HeartIcon className="w-8"/>
           </Link>
         </div>
         <div className="flex lg:hidden">

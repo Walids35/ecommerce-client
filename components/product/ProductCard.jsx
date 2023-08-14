@@ -2,10 +2,12 @@
 import { useStore } from "@/store/store"
 import Star from "../Star"
 import Link from "next/link"
+import {useWishList} from "@/store/wishlist"
 
 const ProductCard = ({key, product}) => {
 
   const addToCart = useStore((store) => store.addToCart)
+  const addToWishList =useWishList((store)=>store.addToWishList)
 
   return (
     <>
@@ -27,6 +29,7 @@ const ProductCard = ({key, product}) => {
                 </div>
             </div>
             <button onClick={() => addToCart(product._id)} className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-black hover:text-white transition-all duration-300">Add To Cart</button>
+            <button onClick={() => addToWishList(product._id)} className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-blue hover:text-white transition-all duration-300">Add To Wishlist</button>
         </div>
     </>
   )
