@@ -3,6 +3,8 @@ import { useStore } from "@/store/store"
 import Star from "../Star"
 import Link from "next/link"
 import {useWishList} from "@/store/wishlist"
+import { HeartIcon } from "@heroicons/react/24/solid"
+import { useEffect } from "react"
 
 const ProductCard = ({key, product}) => {
 
@@ -12,11 +14,12 @@ const ProductCard = ({key, product}) => {
   return (
     <>
         <div key={key}>
-            <Link href={`/product/${product.title}`} className="w-full hover:border-b-4 hover:border-black rounded-3xl transition-all duration-300">
-            <div className=" bg-slate-200 rounded-3xl flex justify-center items-center py-10">
-                <img src={product.images ? (product.images[0]) : (product.title)} alt="" className="h-32" />
+            <div className="relative bg-full-white border border-blue justify-center rounded-3xl flex  py-10">
+            <Link href={`/product/${product._id}`}><img src={product.images ? (product.images[0]) : (product.title)} alt="" className="h-32" /></Link>
+                <button className="absolute top-4 right-4" onClick={() => addToWishList(product._id)}>
+                    <HeartIcon className="w-6 hover:text-blue transition-all duration-300" />
+                </button>
             </div>
-            </Link>
             <div className="flex justify-between mt-5">
                 <h1 className="font-bold text-xl">{product.title}</h1>
                 <p className="font-semibold text-lg text-blue">{product.price}£</p>
@@ -29,7 +32,6 @@ const ProductCard = ({key, product}) => {
                 </div>
             </div>
             <button onClick={() => addToCart(product._id)} className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-black hover:text-white transition-all duration-300">Add To Cart</button>
-            <button onClick={() => addToWishList(product._id)} className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-blue hover:text-white transition-all duration-300">Add To Wishlist</button>
         </div>
     </>
   )
