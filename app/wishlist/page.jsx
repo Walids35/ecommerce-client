@@ -29,25 +29,26 @@ const WishlistComponent = () =>{
       }, [Wishlist]);
 
       return (
-        <div className="wishlist-page">
-          <div className="wishlist-container">
-            <h1>Your Wishlist</h1>
-            <div className="wishlist-products">
+        <>
+        <div className="px-10 py-10 sm:px-10 md:px-32 lg:px-60">
+          <div>
+            <h1 className="font-bold text-3xl">Your Wishlist</h1>
+            <div className="grid grid-cols-4 mt-5 gap-10">
               {loading ? (
                 <p>Loading...</p>
               ) : (
                 products.map((product, index) => (
                   <ProductCard key={index} product={product}>
-                    {/** Render only the "Add to Cart" button */}
                     <button onClick={() => addToCart(product._id)}>Add to Cart</button>
                   </ProductCard>
                 ))
               )}
             </div>
-            <button onClick={() =>  ClearWishlist()}>Clear Wishlist</button>
+            <button className="py-1 px-3 bg-white border border-black text-black mt-3" onClick={() =>  ClearWishlist()}>Clear Wishlist</button>
           </div>
-          <Footer />
         </div>
+        <Footer />
+        </>
       );
   
 };
