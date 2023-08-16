@@ -2,7 +2,6 @@
 import PopoverButton from "./PopoverButton";
 import Link from "next/link";
 import {
-  UserIcon,
   ShoppingCartIcon,
   Bars3Icon,
   HeartIcon 
@@ -83,13 +82,6 @@ export default function NavBar() {
             Home
           </Link>
           <PopoverButton />
-          <Link
-            className="text-sm font-semibold leading-6 text-gray-900 flex gap-1"
-            href="/allproducts"
-          >
-            <p>All</p>
-            <p> Products</p>
-          </Link>
         </div>
         <div className="relative rounded-full bg-white sm:col-span-3" ref={searchBarRef}>
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -97,7 +89,7 @@ export default function NavBar() {
         </div>
         <input
           type="text"
-          className="pl-10 pr-3 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue"
+          className="pl-10 w-80 pr-3 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue"
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -119,11 +111,7 @@ export default function NavBar() {
           </div>
         )}
       </div>
-        <div className="h-1/2 w-0.5 bg-black hidden lg:flex"></div>
         <div className="gap-10 hidden lg:flex">
-          <Link href="/account">
-            <UserIcon className="w-8" />
-          </Link>
           <Link href="/cart" className="flex gap-2">
             <ShoppingCartIcon className="w-8" />
             <p className="mt-1 font-semibold text-lg">({cart.length})</p>
