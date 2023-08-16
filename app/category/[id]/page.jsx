@@ -19,13 +19,25 @@ export default function page() {
   useEffect(() => {
     const filterProducts = async() => {
       const data = {}
+      
       for (const [key, value] of searchParams.entries()) {
-        data[key] = value
+        // Check if the value contains a comma
+        if (value.includes(',')) {
+          // Convert comma-separated values to an array
+          data[key] = value.split(',').map(v => v.trim()); // Trim to remove spaces
+        } else {
+          data[key] = value;
+        }
       }
       try{
-        console.log("Sended Data to '/api/product': ", data)
-        const response = await axios.post("/api/product", data);
-        console.log(response.data)
+        if(Object.keys(data).length == 0){
+          fetchProducts()
+        }else{
+          console.log("Sended Data to '/api/product': ", data)
+          const response = await axios.post("/api/product", data);
+          console.log(response.data)
+          setProducts(response.data)
+        }
       }catch(error){
         console.log(error)
       }
@@ -56,13 +68,13 @@ export default function page() {
     const existingValue = params.get(property.name);
 
     if (isChecked) {
-      params.set(property.name, existingValue ? `${existingValue}.${value}` : value);
+      params.set(property.name, existingValue ? `${existingValue},${value}` : value);
     } else {
       if (existingValue) {
-        const values = existingValue.split('.').filter(val => val !== value);
+        const values = existingValue.split(',').filter(val => val !== value);
         
         if (values.length > 0) {
-          params.set(property.name, values.join('.'));
+          params.set(property.name, values.join(','));
         } else {
           params.delete(property.name); // Remove the key if no values are left
         }
