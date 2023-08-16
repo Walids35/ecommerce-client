@@ -15,6 +15,7 @@ export default function page() {
   const { id } = useParams();
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState({});
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     const filterProducts = async() => {
@@ -119,9 +120,16 @@ export default function page() {
             <h2 className="font-semibold text-xl">
               Today's Best Deals For You !
             </h2>
-            <div className="mt-5 flex gap-8">
+            <button onClick={() => setToggle(!toggle)} className="bg-blue mt-2 px-3 py-1 flex justify-between gap-2 hover:bg-white hover:text-blue transition-all duration-300 hover:border hover:border-blue text-white">
+              <p>Filtering</p>
+              <p>&rsaquo;</p>
+            </button>
+            <div className={toggle ? "mt-5 flex gap-8" : "mt-5 gap-8 hidden"}>
               {propertiesToFill.map((property, index) => {
                 return (
+                  <>
+                  <div className="flex flex-col">
+                  <div className="font-semibold mb-3">{property.name}</div>
                   <div>
                     {property.values.map((value, index) => {
                       return (
@@ -140,6 +148,8 @@ export default function page() {
                       );
                     })}
                   </div>
+                  </div>
+                  </>
                 );
               })}
             </div>
