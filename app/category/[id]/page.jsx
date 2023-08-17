@@ -113,7 +113,7 @@ export default function page() {
 
   return (
     <>
-      <div className="px-10 py-10 sm:px-10 md:px-32 lg:px-60">
+      <div className="px-10 py-10 md:px-28 lg:px-60">
         {category && category.name ? (
           <>
             <h1 className="font-bold text-3xl">{category && category.name}</h1>
