@@ -104,7 +104,7 @@ export default function NavBar() {
             <p className="px-4 py-2 text-sm">Search Results (Found out {searchResults.length} elements)</p>
             {searchResults.slice(0,6).map((product) => (
               <div key={product._id} className=" hover:bg-full-white border border-b-2 ">
-                <Link href={`/product/${product._id}`} className="flex px-4 py-4 items-center">
+                <Link href={`/product/${product._id}`} onClick={() => setSearchQuery("")} className="flex px-4 py-4 items-center">
                 <img
                   src={product.images[0]} 
                   alt={product.title}
