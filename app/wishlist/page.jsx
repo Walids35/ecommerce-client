@@ -10,14 +10,9 @@ import axios from "axios";
 const WishlistComponent = () =>{
     const Wishlist = useWishList((state)=>state.wishlistProducts)
     const addToCart= useStore((store)=>store.addToCart)
-    const getWishListProducts = useWishList((state) => state.getWishListProducts)
     const ClearWishlist= useWishList((state)=>state.clearWishList)
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true)
-
-    useEffect(()=> {
-      getWishListProducts()
-    },[getWishListProducts])
 
     useEffect(() => {
         const fetch = async () => {
