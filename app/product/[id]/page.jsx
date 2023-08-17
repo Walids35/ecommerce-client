@@ -6,11 +6,16 @@ import ImageCarousel from "@/components/ImageCarousel";
 import Footer from "@/components/footer/Footer";
 import { useStore } from "@/store/store";
 import { HeartIcon } from "@heroicons/react/20/solid";
+import { useWishList } from "@/store/wishlist";
 
 const page = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [activeFavorite, setActiveFavorite] = useState(false)
+  const wishlistProducts = useWishList((store) => store.wishlistProducts)
+  const addToWishList = useWishList((store) => store.addToWishList)
+  const removeFromWishList = useWishList((store) => store.removeFromWishList)
   const addToCart = useStore((store) => store.addToCart)
 
   //Verify if the object isEmpty
@@ -24,6 +29,16 @@ const page = () => {
     return true;
   }
 
+  const handleWishlist = () => {
+    if(activeFavorite == false){
+        addToWishList(product._id)
+        setActiveFavorite(true)
+    }else{
+        removeFromWishList(product._id)
+        setActiveFavorite(false)
+    }
+  }
+
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`/api/cart/${id}`);
@@ -34,8 +49,17 @@ const page = () => {
     }
   };
 
+  const VerifyWishlistProduct = () => {
+    const filtered = wishlistProducts.filter((i) => i == id)
+    console.log(filtered)
+    if(filtered.length > 0){
+      setActiveFavorite(true)
+    }
+  }
+
   useEffect(() => {
     fetchProduct();
+    VerifyWishlistProduct();
   }, [id]);
 
   const handleAddToCart = () => {
@@ -55,7 +79,9 @@ const page = () => {
             </div>
           )}
           <div className="py-10">
-            <h1 className="font-bold text-black text-2xl">{product.title}<HeartIcon className="w-6"/></h1>  
+            <h1 className="font-bold text-black text-2xl">{product.title}<button onClick={handleWishlist}>
+                    <HeartIcon className={activeFavorite ? "w-6 text-blue hover:text-black transition-all duration-300" : "w-6 hover:text-blue transition-all duration-300"} />
+                </button></h1>  
             <p className="text-sm mt-5">{product.description}</p>
             <div className="flex flex-col">
             <label className="text-sm mt-5 font-medium">Quantity</label>
