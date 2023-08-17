@@ -81,7 +81,7 @@ export default function NavBar() {
         <img src="/logo.svg" className="hidden sm:flex w-32" alt="logo"/>
         <div className="gap-5 font-semibold items-baseline hidden lg:flex">
           <Link
-            className="text-sm font-semibold leading-6 text-gray-900"
+            className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue"
             href="/"
           >
             Home
@@ -117,11 +117,11 @@ export default function NavBar() {
         )}
       </div>
         <div className="gap-10 hidden lg:flex">
-          <Link href="/cart" className="flex gap-2">
+          <Link href="/cart" className="flex gap-2 hover:text-blue">
             <ShoppingCartIcon className="w-8" />
             <p className="mt-1 font-semibold text-lg">({cart.length})</p>
           </Link>
-          <Link href="/wishlist" className="flex gap-3">
+          <Link href="/wishlist" className="flex gap-3 hover:text-blue">
           <HeartIcon className="w-8"/>
           </Link>
         </div>
