@@ -1,37 +1,36 @@
 import {create} from "zustand";
 
-const store = ((set) => ({ 
-  ls: typeof window !== "undefined" ? window.localStorage : null, 
-  cartProducts: [],
+const store = ((set) => ({  
+  wishlistProducts: [],
 
   getWishListProducts: () => {
-    const storedProducts = localStorage.getItem("cartProducts");
+    const storedProducts = localStorage.getItem("wishlistProducts");
     if (storedProducts) {
-      set({ cartProducts: JSON.parse(storedProducts) });
+      set({ wishlistProducts: JSON.parse(storedProducts) });
     }
   },
 
   addToWishList: (productId) => {
     set((state) => {
-      const updatedProducts = [...state.cartProducts, productId];
-      localStorage.setItem("cartProducts", JSON.stringify(updatedProducts));
-      return { cartProducts: updatedProducts };
+      const updatedProducts = [...state.wishlistProducts, productId];
+      localStorage.setItem("wishlistProducts", JSON.stringify(updatedProducts));
+      return { wishlistProducts: updatedProducts };
     });
   },
 
   removeFromWishList: (productId) => {
     set((state) => {
-      const pos = state.cartProducts.indexOf(productId)
-      const cartP = [...state.cartProducts]
+      const pos = state.wishlistProducts.indexOf(productId)
+      const cartP = [...state.wishlistProducts]
       const updatedProducts = cartP.filter((value,index) => index !==  pos)
-      localStorage.setItem("cartProducts", JSON.stringify(updatedProducts));
-      return { cartProducts: updatedProducts };
+      localStorage.setItem("wishlistProducts", JSON.stringify(updatedProducts));
+      return { wishlistProducts: updatedProducts };
     });
   },
 
   updateWishListProduct: (productId, updatedProduct) => {
     set((state) => {
-      const updatedProducts = state.cartProducts.map((product) => {
+      const updatedProducts = state.wishlistProducts.map((product) => {
         if (product.id === productId) {
           return {
             ...product,
@@ -40,14 +39,14 @@ const store = ((set) => ({
         }
         return product;
       });
-      localStorage.setItem("cartProducts", JSON.stringify(updatedProducts));
-      return { cartProducts: updatedProducts };
+      localStorage.setItem("wishlistProducts", JSON.stringify(updatedProducts));
+      return { wishlistProducts: updatedProducts };
     });
   },
 
   clearWishList: () => {
-    localStorage.removeItem("cartProducts");
-    set({ cartProducts: [] });
+    localStorage.removeItem("wishlistProducts");
+    set({ wishlistProducts: [] });
   },
 }));
 
