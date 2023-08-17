@@ -8,11 +8,16 @@ import { useWishList } from "@/store/wishlist";
 import axios from "axios";
 
 const WishlistComponent = () =>{
-    const Wishlist = useWishList((state)=>state.cartProducts)
+    const Wishlist = useWishList((state)=>state.wishlistProducts)
     const addToCart= useStore((store)=>store.addToCart)
+    const getWishListProducts = useWishList((state) => state.getWishListProducts)
     const ClearWishlist= useWishList((state)=>state.clearWishList)
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true)
+
+    useEffect(()=> {
+      getWishListProducts()
+    },[getWishListProducts])
 
     useEffect(() => {
         const fetch = async () => {
@@ -24,7 +29,7 @@ const WishlistComponent = () =>{
             console.error("error:", error);
           }
         };
-    
+
         fetch();
       }, [Wishlist]);
 
@@ -35,7 +40,19 @@ const WishlistComponent = () =>{
             <h1 className="font-bold text-3xl">Your Wishlist</h1>
             <div className="grid grid-cols-4 mt-5 gap-10">
               {loading ? (
-                <p>Loading...</p>
+                Array.from({ length: 9 }, (_, index) => (
+                  <>
+                    <div>
+                      <div className="bg-slate-500 opacity-20 h-52"></div>
+                      <div className="h-5 w-full bg-slate-500 opacity-20 mt-3"></div>
+                      <div className="h-3 w-full bg-slate-500 opacity-20 mt-3"></div>
+                      <div className="h-3 w-full bg-slate-500 opacity-20 mt-3"></div>
+                      <div className="h-3 w-full bg-slate-500 opacity-20 mt-3"></div>
+                      <div className="h-3 w-full bg-slate-500 opacity-20 mt-3"></div>
+                      <div className="h-5 w-1/3 bg-slate-500 opacity-20 mt-3"></div>
+                    </div>
+                  </>
+                ))
               ) : (
                 products.map((product, index) => (
                   <ProductCard key={index} product={product}>
