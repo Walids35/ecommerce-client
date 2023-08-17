@@ -14,7 +14,7 @@ const ProductCard = ({key, product}) => {
   return (
     <>
         <div key={key}>
-            <div className="relative bg-full-white border border-blue justify-center rounded-3xl flex  py-10">
+            <div className="relative -z-10 bg-full-white border border-blue justify-center rounded-3xl flex  py-10">
             <Link href={`/product/${product._id}`}><img src={product.images ? (product.images[0]) : (product.title)} alt="" className="h-32" /></Link>
                 <button className="absolute top-4 right-4" onClick={() => addToWishList(product._id)}>
                     <HeartIcon className="w-6 hover:text-blue transition-all duration-300" />
