@@ -11,6 +11,7 @@ import DialogMobile from "./DialogMobile";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useStore } from "../../store/store";
 import axios from "axios";
+import { useWishList } from "@/store/wishlist";
 
 const useClickOutside = (ref, handler) => {
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function NavBar() {
   // const [cart, setCart] = useState(0);
   const cart = useStore((store) => store.cartProducts)
   const getCartProducts = useStore((store) => store.getCartProducts)
-  const clearCart = useStore((store) => store.clearCart)
+  const getWishlistProducts = useWishList((store) => store.getWishListProducts)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -42,6 +43,10 @@ export default function NavBar() {
   useEffect(() => {
     getCartProducts()
   },[getCartProducts])
+
+  useEffect(() => {
+    getWishlistProducts()
+  },[getWishlistProducts])
 
   useClickOutside(searchBarRef, () => {
     setShowResults(false);
