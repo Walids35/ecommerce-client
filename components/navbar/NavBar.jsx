@@ -94,23 +94,26 @@ export default function NavBar() {
         </div>
         <input
           type="text"
-          className="pl-10 w-80 pr-3 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue"
+          className="pl-10 pr-3 py-2 w-80 lg:w-96 rounded-full focus:outline-none focus:ring-2 focus:ring-blue"
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         {showResults && (
           <div className="absolute top-full mt-2 bg-white w-full border border-gray-300 rounded-md shadow-lg z-10">
-            {searchResults.map((product) => (
-              <div key={product._id} className="flex px-4 py-2">
+            <p className="px-4 py-2 text-sm">Search Results (Found out {searchResults.length} elements)</p>
+            {searchResults.slice(0,6).map((product) => (
+              <div key={product._id} className=" hover:bg-full-white border border-b-2 ">
+                <Link href={`/product/${product._id}`} className="flex px-4 py-4 items-center">
                 <img
                   src={product.images[0]} 
                   alt={product.title}
                   className="w-16 h-16 mr-4 rounded-md"
                 />
-                <div className="flex flex-col">
-                  <h3 className="text-gray-900 font-medium">{product.title}</h3>
-                </div>
+                <div className="flex flex-row">
+                  <h3 className="text-gray-900 font-medium text-sm">{product.title}</h3>
+                  <h3 className="font-semibold text-blue">{product.price}£</h3>
+                </div></Link>
               </div>
             ))}
           </div>
