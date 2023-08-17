@@ -4,20 +4,40 @@ import Star from "../Star"
 import Link from "next/link"
 import {useWishList} from "@/store/wishlist"
 import { HeartIcon } from "@heroicons/react/24/solid"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const ProductCard = ({key, product}) => {
 
   const addToCart = useStore((store) => store.addToCart)
   const addToWishList =useWishList((store)=>store.addToWishList)
+  const removeFromWishList =useWishList((store)=>store.removeFromWishList)
+  const wishlistProducts = useWishList ((store) => store.wishlistProducts)
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const filtered = wishlistProducts.filter((id) => id == product._id)
+    if(filtered.length > 0){
+        setActive(true)
+    }
+  },[])
+
+  const handleWishlist = () => {
+    if(active == false){
+        addToWishList(product._id)
+        setActive(true)
+    }else{
+        removeFromWishList(product._id)
+        setActive(false)
+    }
+  }
 
   return (
     <>
         <div key={key}>
-            <div className="relative -z-10 bg-full-white border border-blue justify-center rounded-3xl flex  py-10">
+            <div className="relative bg-full-white border border-blue justify-center rounded-3xl flex  py-10">
             <Link href={`/product/${product._id}`}><img src={product.images ? (product.images[0]) : (product.title)} alt="" className="h-32" /></Link>
-                <button className="absolute top-4 right-4" onClick={() => addToWishList(product._id)}>
-                    <HeartIcon className="w-6 hover:text-blue transition-all duration-300" />
+                <button className="absolute hover:top-3 top-4 right-4 transition-all duration-300" onClick={handleWishlist}>
+                    <HeartIcon className={active ? "w-6 text-blue hover:text-black transition-all duration-300" : "w-6 hover:text-blue transition-all duration-300"} />
                 </button>
             </div>
             <div className="flex justify-between mt-5">
