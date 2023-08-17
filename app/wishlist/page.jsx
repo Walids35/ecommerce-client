@@ -38,7 +38,7 @@ const WishlistComponent = () =>{
         <div className="px-10 py-10 sm:px-10 md:px-32 lg:px-60">
           <div>
             <h1 className="font-bold text-3xl">Your Wishlist</h1>
-            <div className="grid grid-cols-4 mt-5 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-5 gap-10">
               {loading ? (
                 Array.from({ length: 9 }, (_, index) => (
                   <>
