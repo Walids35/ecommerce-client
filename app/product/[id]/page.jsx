@@ -5,12 +5,24 @@ import axios from "axios";
 import ImageCarousel from "@/components/ImageCarousel";
 import Footer from "@/components/footer/Footer";
 import { useStore } from "@/store/store";
+import { HeartIcon } from "@heroicons/react/20/solid";
 
 const page = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const addToCart = useStore((store) => store.addToCart)
+
+  //Verify if the object isEmpty
+  function isEmpty(obj) {
+    for (const prop in obj) {
+      if (Object.hasOwn(obj, prop)) {
+        return false;
+      }
+    }
+  
+    return true;
+  }
 
   const fetchProduct = async () => {
     try {
@@ -35,7 +47,7 @@ const page = () => {
   return (
     <>
       <div className="px-10 py-10 md:px-28 lg:px-60">
-        {product ? (
+        {!isEmpty(product) ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {product.images && (
             <div>
@@ -43,7 +55,7 @@ const page = () => {
             </div>
           )}
           <div className="py-10">
-            <h1 className="font-bold text-black text-2xl">{product.title}</h1>
+            <h1 className="font-bold text-black text-2xl">{product.title}<HeartIcon className="w-6"/></h1>  
             <p className="text-sm mt-5">{product.description}</p>
             <div className="flex flex-col">
             <label className="text-sm mt-5 font-medium">Quantity</label>
@@ -59,7 +71,19 @@ const page = () => {
         </div>
         ) : (
           <>
-            <div>Loading... </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              <div className="w-full h-96 bg-slate-500 opacity-20"></div>
+              <div>
+                <div className="h-10 w-full bg-slate-500 opacity-20 mt-3"></div>
+                <div className="h-10 w-1/2 bg-slate-500 opacity-20 mt-3"></div>
+                <div className="h-10 w-1/3 bg-slate-500 opacity-20 mt-3"></div>
+                <div className="h-5 w-full bg-slate-500 opacity-20 mt-8"></div>
+                <div className="h-5 w-full bg-slate-500 opacity-20 mt-3"></div>
+                <div className="h-5 w-full bg-slate-500 opacity-20 mt-3"></div>
+                <div className="h-5 w-full bg-slate-500 opacity-20 mt-3"></div>
+                <div className="h-10 w-1/3 bg-slate-500 opacity-20 mt-5"></div>
+              </div>
+            </div>
           </>
         )}
       </div>
