@@ -5,6 +5,8 @@ import Link from "next/link"
 import {useWishList} from "@/store/wishlist"
 import { HeartIcon } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 const ProductCard = ({key, product}) => {
 
@@ -13,6 +15,7 @@ const ProductCard = ({key, product}) => {
   const removeFromWishList =useWishList((store)=>store.removeFromWishList)
   const wishlistProducts = useWishList ((store) => store.wishlistProducts)
   const [active, setActive] = useState(false);
+  const router = useRouter()
 
   useEffect(() => {
     const filtered = wishlistProducts.filter((id) => id == product._id)
@@ -25,6 +28,12 @@ const ProductCard = ({key, product}) => {
     if(active == false){
         addToWishList(product._id)
         setActive(true)
+        toast("Successfully added to your wishlist !", {
+            action: {
+                label: 'Go To Wishlist',
+                onClick: () => router.push("/wishlist")
+            },
+        })
     }else{
         removeFromWishList(product._id)
         setActive(false)
@@ -51,7 +60,8 @@ const ProductCard = ({key, product}) => {
                 <p className="text-blue">({product.reviewsNumber})</p>
                 </div>
             </div>
-            <button onClick={() => addToCart(product._id)} className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-black hover:text-white transition-all duration-300">Add To Cart</button>
+            <button onClick={() => {addToCart(product._id) 
+                toast.success(`${product.title} is successfully added to the cart !`)}} className="border-2 border-black px-3 py-1.5 mt-2 rounded-full hover:bg-black hover:text-white transition-all duration-300">Add To Cart</button>
         </div>
     </>
   )
