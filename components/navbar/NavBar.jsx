@@ -77,7 +77,7 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="h-20 bg-white flex items-center justify-between px-6 lg:px-24 xl:px-60 drop-shadow-md">
+      <div className="fixed z-10 w-screen mt-8 h-20 bg-white flex items-center justify-between px-6 lg:px-24 xl:px-60 drop-shadow-md">
         <img src="/logo.svg" className="hidden sm:flex w-32" alt="logo"/>
         <div className="gap-5 font-semibold items-baseline hidden lg:flex">
           <Link
