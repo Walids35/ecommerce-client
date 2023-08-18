@@ -51,7 +51,7 @@ const ProductCard = ({key, product}) => {
                 </button>
             </div>
             <div className="flex justify-between mt-5">
-                <h1 className="font-bold text-xl">{product.title}</h1>
+                <Link href={`/product/${product._id}`}><h1 className="font-bold text-xl">{product.title}</h1></Link>
                 <p className="font-semibold text-lg text-blue">{product.price}£</p>
             </div>
             <div className="my-1">
