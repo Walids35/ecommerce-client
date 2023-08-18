@@ -12,7 +12,9 @@ export default function RootLayout({ children }) {
       <body>
         <OverNav />
         <NavBar />
+        <div className="pt-28">
         {children}
+        </div>
       </body>
     </html>
   );
