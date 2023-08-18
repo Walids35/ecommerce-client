@@ -37,6 +37,7 @@ const ProductCard = ({key, product}) => {
     }else{
         removeFromWishList(product._id)
         setActive(false)
+        toast("Product deleted from your wishlist !")
     }
   }
 
