@@ -1,5 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ImageCarousel from "@/components/ImageCarousel";
@@ -7,6 +7,7 @@ import Footer from "@/components/footer/Footer";
 import { useStore } from "@/store/store";
 import { HeartIcon } from "@heroicons/react/20/solid";
 import { useWishList } from "@/store/wishlist";
+import { Toaster, toast } from "sonner";
 
 const page = () => {
   const { id } = useParams();
@@ -17,6 +18,7 @@ const page = () => {
   const addToWishList = useWishList((store) => store.addToWishList)
   const removeFromWishList = useWishList((store) => store.removeFromWishList)
   const addToCart = useStore((store) => store.addToCart)
+  const router = useRouter()
 
   //Verify if the object isEmpty
   function isEmpty(obj) {
@@ -33,25 +35,40 @@ const page = () => {
     if(activeFavorite == false){
         addToWishList(product._id)
         setActiveFavorite(true)
+        toast("Successfully added to your wishlist !", {
+          action: {
+              label: 'Go To Wishlist',
+              onClick: () => router.push("/wishlist")
+          },
+      })
     }else{
         removeFromWishList(product._id)
         setActiveFavorite(false)
+        toast("Product deleted from your wishlist !")
     }
   }
 
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`/api/cart/${id}`);
-      console.log(response.data[0]);
-      setProduct(response.data[0]);
+      if(response.data.error){
+        toast.error(response.data.error, {
+          action: {
+            label: 'Undo',
+            onClick: () => router.back()
+          }
+        })
+      }else{
+        setProduct(response.data[0]);
+      }
     } catch (error) {
       console.log("Error:", error);
+      toast.error(error.message + "--" + error.code)
     }
   };
 
   const VerifyWishlistProduct = () => {
     const filtered = wishlistProducts.filter((i) => i == id)
-    console.log(filtered)
     if(filtered.length > 0){
       setActiveFavorite(true)
     }
@@ -66,11 +83,18 @@ const page = () => {
     for(let i =0; i < quantity; i++){
       addToCart(product._id)
     }
+    toast.success("Products successfully added !",{
+      action:{
+        label: "Go to Cart",
+        onClick: () => router.push('/cart')
+      }
+    })
     setQuantity(1)
   }
   return (
     <>
       <div className="px-10 py-10 md:px-28 lg:px-60">
+        <Toaster position="bottom-right" richColors />
         {!isEmpty(product) ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {product.images && (
@@ -79,7 +103,7 @@ const page = () => {
             </div>
           )}
           <div className="py-10">
-            <h1 className="font-bold text-black text-2xl">{product.title}<button onClick={handleWishlist}>
+            <h1 className="font-bold text-black text-2xl">{product.title}<button onClick={handleWishlist} className="ml-8 mt-1">
                     <HeartIcon className={activeFavorite ? "w-6 text-blue hover:text-black transition-all duration-300" : "w-6 hover:text-blue transition-all duration-300"} />
                 </button></h1>  
             <p className="text-sm mt-5">{product.description}</p>
