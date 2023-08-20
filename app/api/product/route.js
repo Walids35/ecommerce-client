@@ -44,24 +44,46 @@ import { Product } from "@/models/Product";
 export async function POST(req) {
   try {
     await mongooseConnect();
+
     const propertiesObj = await req.json();
+
+    const pageNumber = parseInt(propertiesObj.pageNumber) || 1; 
+    const pageSize = parseInt(propertiesObj.pageSize) || 10; 
+    
+    // Filtering criteria
     const filter = {};
     for (const [key, value] of Object.entries(propertiesObj)) {
+      if (key === "pageNumber" || key === "pageSize" || key === "sortBy" || key === "sortOrder") {
+        continue; 
+      }
       if (Array.isArray(value)) {
-        // Use $in operator for array values
-        const trimmedValues = value.map(v => v.trim()); // Trim values
+        const trimmedValues = value.map(v => v.trim()); 
         filter[`properties.${key}`] = {
-          $in: trimmedValues.map(v => new RegExp(v, "i")), // Use case-insensitive regex
+          $in: trimmedValues.map(v => new RegExp(v, "i")), 
         };
       } else {
-        // For single values, use the exact match approach
         const regexPattern = new RegExp(value, "i");
         filter[`properties.${key}`] = regexPattern;
       }
     }
-    const products = await Product.find(filter);
-    return NextResponse.json(products);
+
+    const sortBy = propertiesObj.sortBy || 'name'; 
+    const sortOrder = propertiesObj.sortOrder || 'asc'; 
+    const sortOptions = {};
+    sortOptions[sortBy] = sortOrder === 'desc' ? -1 : 1;
+
+    const totalProducts = await Product.countDocuments(filter);
+    const totalPages = Math.ceil(totalProducts / pageSize);
+
+    const products = await Product.find(filter)
+      .sort(sortOptions)
+      .skip((pageNumber - 1) * pageSize)
+      .limit(pageSize);
+
+    return NextResponse.json({ products, totalPages });
   } catch (error) {
     return NextResponse.json({ error: error.message });
   }
 }
+
+
