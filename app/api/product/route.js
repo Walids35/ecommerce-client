@@ -80,7 +80,7 @@ export async function POST(req) {
       .skip((pageNumber - 1) * pageSize)
       .limit(pageSize);
 
-    return NextResponse.json({ products, totalPages });
+    return NextResponse.json({ products, totalPages, totalProducts });
   } catch (error) {
     return NextResponse.json({ error: error.message });
   }
