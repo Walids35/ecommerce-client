@@ -17,35 +17,56 @@ export default function page() {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState({});
   const [toggle, setToggle] = useState(false);
+  const [pages, setPages] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
+
+  //Pagination Settings
+  const pageSize = 8;
+  const actualPage = searchParams.get("pageNumber") || 1;
+  const sortOrder = searchParams.get("order") || "asc";
+  const sortBy = searchParams.get("sortBy") || "price";
 
   useEffect(() => {
-    const filterProducts = async() => {
-      const data = {}
-      
+    fetchCategory();
+    filterProducts();
+  }, [searchParams]);
+
+  const filterProducts = async () => {
+      setProducts([])
+      const data = {};
+      data.pageSize = pageSize;
+      data.sortOrder = sortOrder;
+      data.sortBy = sortBy;
       for (const [key, value] of searchParams.entries()) {
         // Check if the value contains a comma
-        if (value.includes(',')) {
+        if (value.includes(",")) {
           // Convert comma-separated values to an array
-          data[key] = value.split(',').map(v => v.trim()); // Trim to remove spaces
+          data[key] = value.split(",").map((v) => v.trim()); // Trim to remove spaces
         } else {
           data[key] = value;
         }
       }
-      try{
-        if(Object.keys(data).length == 0){
-          fetchProducts()
-        }else{
-          console.log("Sended Data to '/api/product': ", data)
-          const response = await axios.post("/api/product", data);
-          console.log(response.data)
-          setProducts(response.data)
-        }
-      }catch(error){
-        console.log(error)
+      try {
+        console.log("Sended Data to '/api/product': ", data);
+        const response = await axios.post(`/api/product`, data);
+        console.log(response.data);
+        setProducts(response.data.products);
+        setPages(response.data.totalPages);
+        setTotalProducts(response.data.totalProducts);
+      } catch (error) {
+        console.log(error);
       }
+    };
+
+    function isEmpty(obj) {
+      for (const prop in obj) {
+        if (Object.hasOwn(obj, prop)) {
+          return false;
+        }
+      }
+    
+      return true;
     }
-    filterProducts()
-  },[searchParams])
 
   const propertiesToFill = [];
   if (category) {
@@ -70,13 +91,16 @@ export default function page() {
     const existingValue = params.get(property.name);
 
     if (isChecked) {
-      params.set(property.name, existingValue ? `${existingValue},${value}` : value);
+      params.set(
+        property.name,
+        existingValue ? `${existingValue},${value}` : value
+      );
     } else {
       if (existingValue) {
-        const values = existingValue.split(',').filter(val => val !== value);
-        
+        const values = existingValue.split(",").filter((val) => val !== value);
+
         if (values.length > 0) {
-          params.set(property.name, values.join(','));
+          params.set(property.name, values.join(","));
         } else {
           params.delete(property.name); // Remove the key if no values are left
         }
@@ -84,7 +108,7 @@ export default function page() {
     }
 
     const newQueryString = params.toString();
-    router.push(pathname + '?' + newQueryString);
+    router.push(pathname + "?" + newQueryString);
   };
 
   async function fetchCategory() {
@@ -96,33 +120,38 @@ export default function page() {
     }
   }
 
-  useEffect(() => {
-    fetchCategory();
-    fetchProducts();
-  }, []);
+  const handlePagination = (page) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("pageNumber", page);
+    const newQueryString = params.toString();
+    router.push(pathname + "?" + newQueryString);
+  };
 
-  async function fetchProducts() {
-    axios
-      .get(`/api/product/${id}`)
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleSort = (e) => {
+    e.preventDefault();
+    const value = e.currentTarget.value
+    const [key,val] = value.split(' ')
+    const params = new URLSearchParams(searchParams);
+    params.set("sortBy", key);
+    params.set("sortOrder", val);
+    const newQueryString = params.toString();
+    router.push(pathname + "?" + newQueryString);
   }
 
   return (
     <>
       <div className="px-10 py-10 md:px-28 lg:px-60">
         <Toaster richColors position="bottom-right" />
-        {category && category.name ? (
+        {!isEmpty(category) ? (
           <>
             <h1 className="font-bold text-3xl">{category && category.name}</h1>
             <h2 className="font-semibold text-xl">
               Today's Best Deals For You !
             </h2>
-            <button onClick={() => setToggle(!toggle)} className="bg-blue mt-2 px-3 py-1 flex justify-between gap-2 hover:bg-white hover:text-blue transition-all duration-300 hover:border hover:border-blue text-white">
+            <button
+              onClick={() => setToggle(!toggle)}
+              className="bg-blue mt-2 px-3 py-1 flex justify-between gap-2 hover:bg-white hover:text-blue transition-all duration-300 hover:border hover:border-blue text-white"
+            >
               <p>Filtering</p>
               <p>&rsaquo;</p>
             </button>
@@ -130,30 +159,70 @@ export default function page() {
               {propertiesToFill.map((property, index) => {
                 return (
                   <>
-                  <div className="flex flex-col">
-                  <div className="font-semibold mb-3">{property.name}</div>
-                  <div>
-                    {property.values.map((value, index) => {
-                      return (
-                        <>
-                          <div>
-                            <input
-                              type="checkbox"
-                              id={property.name + "" + index.toString()}
-                              name={property.name + "" + index.toString()}
-                              value={value}
-                              onChange={(event) => {handleCheckboxChange(event, property, value)}}
-                            />
-                            <label for={property.name + "" + index.toString()}>{value}</label>
-                          </div>
-                        </>
-                      );
-                    })}
-                  </div>
-                  </div>
+                    <div className="flex flex-col" key={index}>
+                      <div className="font-semibold mb-3">{property.name}</div>
+                      <div>
+                        {property.values.map((value, index) => {
+                          return (
+                            <>
+                              <div key={index}>
+                                <input
+                                  type="checkbox"
+                                  id={property.name + "" + index.toString()}
+                                  name={property.name + "" + index.toString()}
+                                  value={value}
+                                  onChange={(event) => {
+                                    handleCheckboxChange(
+                                      event,
+                                      property,
+                                      value
+                                    );
+                                  }}
+                                />
+                                <label
+                                  for={property.name + "" + index.toString()}
+                                >
+                                  {value}
+                                </label>
+                              </div>
+                            </>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </>
                 );
               })}
+            </div>
+            <div className="border items-center border-black px-2 py-1 w-full mt-3 flex justify-between">
+              <p>Display 1-8 of {totalProducts} products</p>
+              <div className="flex gap-2">
+                {Array.from({ length: pages }, (_, index) => (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => handlePagination(index + 1)}
+                      key={index}
+                      className={
+                        actualPage == index + 1
+                          ? "px-2 py-1 border text-white bg-blue hover:bg-ring-blue"
+                          : "px-2 py-1 bg-white border hover:bg-blue hover:text-white {}"
+                      }
+                    >
+                      {index + 1}
+                    </button>
+                  </>
+                ))}
+              </div>
+              <div className="flex items-center">
+                <p>Sort By:</p>
+                <select onChange={(e) => handleSort(e)} className="bg-blue text-white px-2 rounded-full mx-2 py-1" name="sort" id="sort">
+                  <option value="price asc">Ascending Price</option>
+                  <option value="price desc">Desending Price</option>
+                  <option value="name asc">Name, A to Z</option>
+                  <option value="name desc">Name, Z to A</option>
+                </select>
+              </div>
             </div>
           </>
         ) : (
@@ -163,7 +232,7 @@ export default function page() {
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
           {products.length > 0
             ? products.map((product, index) => {
-                return <ProductCard product={product} />;
+                return <ProductCard product={product} key={index} />;
               })
             : Array.from({ length: 9 }, (_, index) => (
                 <>
