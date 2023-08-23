@@ -7,12 +7,15 @@ import { useStore } from "@/store/store";
 import CartForm from "@/components/Forms/CartForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
+
 
 const CartComponent = () => {
   const cart = useStore((state) => state.cartProducts);
   const clearCart = useStore((state) => state.clearCart);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true)
+  const searchParams = useSearchParams()
 
   const delivery = 7;
   const discount = 0;
@@ -44,7 +47,7 @@ const CartComponent = () => {
     fetch();
   }, [cart]);
 
-  if(window.location.href.includes("success")){
+  if(searchParams.toString().includes("success")){
     useEffect(() => {
       clearCart()
       setProducts([])
@@ -61,7 +64,7 @@ const CartComponent = () => {
     )
   }
 
-  if(window.location.href.includes("canceled")){
+  if(searchParams.toString().includes("canceled")){
     return(
       <>
         <div className=" font-semibold w-full flex flex-col items-center justify-center" style={{height: "80vh"}}>
