@@ -10,7 +10,22 @@
  *           schema:
  *             type: object
  *             properties:
- *               Fabriquant:
+ *               parentCategoryId:
+ *                 type: string
+ *               filters:
+ *                 type: object
+ *                 properties:
+ *                   Fabriquant:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *               pageNumber:
+ *                 type: integer
+ *               pageSize:
+ *                 type: integer
+ *               sortBy:
+ *                 type: string
+ *               sortOrder:
  *                 type: string
  *     responses:
  *       200:
@@ -18,9 +33,16 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Product'
+ *               type: object
+ *               properties:
+ *                 products:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Product'
+ *                 totalPages:
+ *                   type: integer
+ *                 totalProducts:
+ *                   type: integer
  *       400:
  *         description: Bad request
  *         content:
@@ -36,39 +58,40 @@
  */
 
 
+
 import { NextResponse } from "next/server";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
+import { Category } from "@/models/Category";
 
 
 export async function POST(req) {
   try {
     await mongooseConnect();
 
-    const propertiesObj = await req.json();
+    const requestData = await req.json();
 
-    const pageNumber = parseInt(propertiesObj.pageNumber) || 1; 
-    const pageSize = parseInt(propertiesObj.pageSize) || 10; 
-    
-    // Filtering criteria
-    const filter = {};
-    for (const [key, value] of Object.entries(propertiesObj)) {
-      if (key === "pageNumber" || key === "pageSize" || key === "sortBy" || key === "sortOrder") {
-        continue; 
-      }
-      if (Array.isArray(value)) {
-        const trimmedValues = value.map(v => v.trim()); 
+    const pageNumber = parseInt(requestData.pageNumber) || 1;
+    const pageSize = parseInt(requestData.pageSize) || 10;
+    const parentCategoryId = requestData.parentCategoryId; 
+
+    const categories = await Category.find({ $or: [{ _id: parentCategoryId }, { parent: parentCategoryId }] });
+
+    const categoryIds = categories.map(category => category._id);
+
+    const filter = { category: { $in: categoryIds } };
+
+    for (const [key, values] of Object.entries(requestData.properties || {})) {
+      if (Array.isArray(values) && values.length > 0) {
+        const trimmedValues = values.map(v => v.trim());
         filter[`properties.${key}`] = {
-          $in: trimmedValues.map(v => new RegExp(v, "i")), 
+          $in: trimmedValues.map(v => new RegExp(v, "i")),
         };
-      } else {
-        const regexPattern = new RegExp(value, "i");
-        filter[`properties.${key}`] = regexPattern;
       }
     }
 
-    const sortBy = propertiesObj.sortBy || 'name'; 
-    const sortOrder = propertiesObj.sortOrder || 'asc'; 
+    const sortBy = requestData.sortBy || 'title';
+    const sortOrder = requestData.sortOrder || 'asc';
     const sortOptions = {};
     sortOptions[sortBy] = sortOrder === 'desc' ? -1 : 1;
 
@@ -85,5 +108,13 @@ export async function POST(req) {
     return NextResponse.json({ error: error.message });
   }
 }
+
+
+
+
+
+
+
+
 
 
