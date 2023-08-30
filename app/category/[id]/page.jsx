@@ -23,7 +23,7 @@ export default function page() {
   //Pagination Settings
   const pageSize = 8;
   const actualPage = searchParams.get("pageNumber") || 1;
-  const sortOrder = searchParams.get("order") || "asc";
+  const sortOrder = searchParams.get("sortOrder") || "asc";
   const sortBy = searchParams.get("sortBy") || "price";
 
   useEffect(() => {
@@ -33,20 +33,35 @@ export default function page() {
 
   const filterProducts = async () => {
       setProducts([])
-      const data = {};
+      const data = {
+        properties: {}
+      };
       data.parentCategoryId = id;
       data.pageSize = pageSize;
       data.sortOrder = sortOrder;
       data.sortBy = sortBy;
+      data.pageNumber = parseInt(actualPage);
       for (const [key, value] of searchParams.entries()) {
-        // Check if the value contains a comma
+        if(key == "pageNumber" || key == "sortBy" || key == "sortOrder"){
+          continue;
+        }
         if (value.includes(",")) {
-          // Convert comma-separated values to an array
-          data[key] = value.split(",").map((v) => v.trim()); // Trim to remove spaces
+          if(data.properties[key] == null){
+            data.properties[key] = [];
+          }
+          value.split(",").map((v) => {
+            v.trim()
+            console.log(v)
+            data.properties[key].push(v);
+          })
         } else {
-          data[key] = value;
+          if(data.properties[key] == null){
+            data.properties[key] = [];
+          }
+          data.properties[key].push(value);
         }
       }
+
       try {
         console.log("Sended Data to '/api/product': ", data);
         const response = await axios.post(`/api/product`, data);
