@@ -34,6 +34,7 @@ export default function page() {
   const filterProducts = async () => {
       setProducts([])
       const data = {};
+      data.parentCategoryId = id;
       data.pageSize = pageSize;
       data.sortOrder = sortOrder;
       data.sortBy = sortBy;
