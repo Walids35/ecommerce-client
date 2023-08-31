@@ -175,7 +175,7 @@ const page = () => {
         <div>
           <h1 className="mt-10 font-bold text-3xl">Similar Products</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 mt-10 gap-10">
-            {similarProducts.map((product, index) => {
+            {similarProducts.length > 0 && similarProducts.map((product, index) => {
               return (
                 <>
                   <div key={index}>
@@ -211,7 +211,6 @@ const page = () => {
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
