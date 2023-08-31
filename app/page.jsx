@@ -1,20 +1,69 @@
-import Footer from "@/components/footer/Footer"
-import SectionOne from "@/components/section1/SectionOne"
-import SectionTwo from "@/components/section2/SectionTwo"
-import SectionThree from "@/components/section3/SectionThree"
+"use client";
+import FrontCard from "@/components/FrontCard";
+import {
+  TruckIcon,
+  QuestionMarkCircleIcon,
+  CreditCardIcon,
+} from "@heroicons/react/24/outline";
+
+const FeaturesArray = [
+  {
+    icon: TruckIcon,
+    name: "FreeShipping",
+    description: "Free Shipping on all order",
+  },
+  {
+    icon: QuestionMarkCircleIcon,
+    name: "Online Support",
+    description: "Technical Support 24/7",
+  },
+  {
+    icon: CreditCardIcon,
+    name: "Secure Payment",
+    description: "Stripe payment & All cards accepted",
+  },
+];
 
 export default function Home() {
   return (
     <>
-      <div className="bg-home-img w-full bg-[right_top] lg:bg-center bg-cover px-10 py-20 sm:py-32 sm:px-10 md:px-32 lg:px-60" style={{height: "600px"}}>
-        <p className="text-3xl sm:text-5xl text-full-white font-bold">Shopping and <span className="mt-3">Entertainement</span></p>
-        <p className="text-white mt-5 w-full md:w-1/2">Shopping is a bit of a relaxing hobby for me, which is sometimes troubling for the bank balance.</p>
-        <button className="text-white border-white border-2 mt-10 py-3 px-6 rounded-full transition-all duration-300 hover:bg-white hover:text-black">Learn More</button>
+      <div className="p-10">
+        <div className="relative bg-blue" style={{ height: "90vh" }}>
+          <FrontCard />
+          <div className="hidden sm:bottom-0 md:block sm:absolute sm:w-3/4 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2">
+            <div className="h-32 bg-black flex justify-around items-center">
+              {FeaturesArray.map((value, index) => {
+                return (
+                  <Features
+                    icon={value.icon}
+                    name={value.name}
+                    description={value.description}
+                    key={index}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
-      <SectionOne />
-      <SectionTwo />
-      <SectionThree />
-      <Footer />
+      {/** <Footer />*/}
     </>
-  )
+  );
+}
+
+function Features({ ...props }) {
+  const Icon = props.icon;
+  return (
+    <>
+      <div key={props.key}>
+        <div className="flex w-fit gap-5 text-white items-center">
+          <Icon className="w-14" />
+          <div>
+            <p className="font-bold text-xl">{props.name}</p>
+            <p className="text-sm">{props.description}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
