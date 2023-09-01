@@ -5,6 +5,7 @@ import {
   QuestionMarkCircleIcon,
   CreditCardIcon,
 } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 const FeaturesArray = [
   {
@@ -43,6 +44,38 @@ export default function Home() {
                 );
               })}
             </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-3 mt-10">
+          <h2 style={{ whiteSpace: "nowrap" }} className="block text-xl font-semibold">
+            Shop By Categories
+          </h2>
+          <div className="bg-black w-full" style={{ height: "1px" }}></div>
+        </div>
+        <div className="mt-5 gap-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+          <div className="bg-gray-200 py-5 pl-5">
+            <div className="flex flex-col items-end">
+              <Image src="/categoriesImg/1.svg" width={300} height={300} />
+            </div>
+            <p className="font-medium text-xl">Ordinateur Portable</p>
+          </div>
+          <div className="bg-gray-200 py-5 pl-5">
+            <div className="flex flex-col items-end">
+              <Image src="/categoriesImg/2.png" width={280} height={280} />
+            </div>
+            <p className="font-medium text-xl">Accessoires & peripheriques</p>
+          </div>
+          <div className="bg-gray-200 py-5 pl-5 flex flex-col justify-center">
+            <div className="flex flex-col items-center py-10">
+              <Image src="/categoriesImg/3.png" width={200} height={200} />
+            </div>
+            <p className="font-medium text-xl">Ordinateur De Bureau</p>
+          </div>
+          <div className="bg-gray-200 py-5 pl-5 flex flex-col justify-center">
+            <div className="flex flex-col items-center py-20">
+              <Image src="/categoriesImg/4.png" width={200} height={200} />
+            </div>
+            <p className="font-medium text-xl">Composants Informatiques</p>
           </div>
         </div>
       </div>
