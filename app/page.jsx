@@ -6,10 +6,11 @@ import {
   CreditCardIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import ProductCard from "@/components/product/ProductCard";
 import Footer from "@/components/footer/Footer";
+import { motion, useScroll } from "framer-motion";
 
 const FeaturesArray = [
   {
@@ -31,7 +32,12 @@ const FeaturesArray = [
 
 export default function Home() {
   const [products, setProducts] = useState([]);
-  const id =  "64b5771bc77e31b3067398f9";
+  const id = "64b5771bc77e31b3067398f9";
+  const categoryRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: categoryRef,
+    offset: ["0 1", "1 1"],
+  });
 
   const fetchProducts = async () => {
     try {
@@ -43,8 +49,12 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchProducts()
-  },[])
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    console.log(scrollYProgress);
+  }, [scrollYProgress]);
 
   return (
     <>
@@ -76,30 +86,73 @@ export default function Home() {
           <div className="bg-black w-full" style={{ height: "1px" }}></div>
         </div>
         <div className="mt-5 gap-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
-          <div className="bg-gray-200 py-5 pl-5">
+          <motion.div
+            ref={categoryRef}
+            style={{
+              scale: scrollYProgress,
+              opacity: scrollYProgress,
+            }}
+            className="bg-gray-200 py-5 pl-5 hover:bg-gray-300 transition-all duration-300"
+          >
             <div className="flex flex-col items-end">
-              <Image alt="" src="/categoriesImg/1.svg" width={300} height={300} />
+              <Image
+                alt=""
+                src="/categoriesImg/1.svg"
+                width={300}
+                height={300}
+              />
             </div>
             <p className="font-medium text-xl">Ordinateur Portable</p>
-          </div>
-          <div className="bg-gray-200 py-5 pl-5">
+          </motion.div>
+          <motion.div
+            ref={categoryRef}
+            style={{
+              scale: scrollYProgress,
+              opacity: scrollYProgress,
+            }}
+            className="bg-gray-200 py-5 pl-5 hover:bg-gray-300 transition-all duration-300"
+          >
             <div className="flex flex-col items-end">
-              <Image alt="" src="/categoriesImg/2.png" width={280} height={280} />
+              <Image
+                alt=""
+                src="/categoriesImg/2.png"
+                width={280}
+                height={280}
+              />
             </div>
             <p className="font-medium text-xl">Accessoires & peripheriques</p>
-          </div>
-          <div className="bg-gray-200 py-5 pl-5 flex flex-col justify-center">
+          </motion.div>
+          <motion.div
+            ref={categoryRef}
+            style={{
+              scale: scrollYProgress,
+              opacity: scrollYProgress,
+            }}
+            className="bg-gray-200 py-5 pl-5 flex flex-col justify-center hover:bg-gray-300 transition-all duration-300"
+          >
             <div className="flex flex-col items-center py-10">
-              < alert src="/categoriesImg/3.png" width={200} height={200} />
+              <alert src="/categoriesImg/3.png" width={200} height={200} />
             </div>
             <p className="font-medium text-xl">Ordinateur De Bureau</p>
-          </div>
-          <div className="bg-gray-200 py-5 pl-5 flex flex-col justify-center">
+          </motion.div>
+          <motion.div
+            ref={categoryRef}
+            style={{
+              scale: scrollYProgress,
+              opacity: scrollYProgress,
+            }}
+            className="bg-gray-200 py-5 pl-5 flex flex-col justify-center hover:bg-gray-300 transition-all duration-300"
+          >
             <div className="flex flex-col items-center py-20">
-              <Image alt="" src="/categoriesImg/4.png" width={200} height={200} />
+              <Image
+                alt=""
+                src="/categoriesImg/4.png"
+                width={200}
+                height={200}
+              />
             </div>
             <p className="font-medium text-xl">Composants Informatiques</p>
-          </div>
+          </motion.div>
         </div>
         {/**Promo Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-10">
@@ -118,7 +171,12 @@ export default function Home() {
               </button>
             </div>
             <div>
-              <Image src="/startbestdeals.svg" alt="" width={200} height={200} />
+              <Image
+                src="/startbestdeals.svg"
+                alt=""
+                width={200}
+                height={200}
+              />
             </div>
           </div>
           <div className="bg-gray-200 pl-10 flex justify-start items-center py-4 md:py-2 xl:py-0">
@@ -171,10 +229,10 @@ export default function Home() {
           <div className="bg-black w-full" style={{ height: "1px" }}></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 mt-5">
-        {products?.length > 0 && products.slice(0,8).map((product, index) => {
-          console.log(product);
-          return <ProductCard key={index} product={product}/> 
-        })}
+          {products?.length > 0 &&
+            products.slice(0, 8).map((product, index) => {
+              return <ProductCard key={index} product={product} />;
+            })}
         </div>
         {/**Subscribe Card */}
         <div className="bg-gray-200 h-80 px-5 pt-5 flex justify-around mt-10">
@@ -186,7 +244,7 @@ export default function Home() {
               SUBSCRIBE TO<br></br>THE NEWS
             </h1>
             <p className="text-sm">
-            Be aware of all discounts and bargains ! Don't miss your benefit!
+              Be aware of all discounts and bargains ! Don't miss your benefit!
             </p>
             <div>
               <button className="bg-black py-2 px-3 text-white mt-2">
