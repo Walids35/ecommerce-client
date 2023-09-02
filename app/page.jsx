@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "@/components/product/ProductCard";
+import Footer from "@/components/footer/Footer";
 
 const FeaturesArray = [
   {
@@ -199,6 +200,7 @@ export default function Home() {
         </div>
       </div>
       {/** <Footer />*/}
+      <Footer />
     </>
   );
 }
