@@ -47,7 +47,10 @@ export default function Home() {
           </div>
         </div>
         <div className="flex items-center gap-3 mt-10">
-          <h2 style={{ whiteSpace: "nowrap" }} className="block text-xl font-semibold">
+          <h2
+            style={{ whiteSpace: "nowrap" }}
+            className="block text-xl font-semibold"
+          >
             Shop By Categories
           </h2>
           <div className="bg-black w-full" style={{ height: "1px" }}></div>
@@ -77,6 +80,64 @@ export default function Home() {
             </div>
             <p className="font-medium text-xl">Composants Informatiques</p>
           </div>
+        </div>
+        {/**Promo Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-10">
+          <div className="bg-gray-200 flex justify-center items-center py-4 md:py-2 xl:py-0">
+            <div className="ml-8">
+              <h2 className="font-bold text-2xl">MY STORE BASICS</h2>
+              <p className="w-3/4 text-sm mt-2">
+                Shop today's Deals, Lightning Deals, and limited-time discounts
+              </p>
+              <button
+                type="button"
+                className="flex mt-2 items-center gap-1 text-gray-500 hover:border-b-2 hover:border-gray-500 transition-all duration-200"
+              >
+                <p className="text-sm">See More</p>
+                <p> &rarr;</p>
+              </button>
+            </div>
+            <div>
+              <Image src="/startbestdeals.svg" width={200} height={200} />
+            </div>
+          </div>
+          <div className="bg-gray-200 pl-10 flex justify-start items-center py-4 md:py-2 xl:py-0">
+            <div className="">
+              <h2 className="font-bold text-2xl">Deals & Promotions</h2>
+              <p className="w-full text-sm mt-2">
+                Shop today's Deals, Lightning Deals, and limited-time discounts
+              </p>
+              <button
+                type="button"
+                className="flex mt-2 items-center gap-1 text-gray-500 hover:border-b-2 hover:border-gray-500 transition-all duration-200"
+              >
+                <p className="text-sm">See More</p>
+                <p> &rarr;</p>
+              </button>
+            </div>
+          </div>
+        </div>
+        {/**Discover Card */}
+        <div className="bg-gray-200 h-80 px-5 pt-5 flex justify-center mt-10">
+              <div className="flex flex-col justify-center gap-3">
+                <p className="text-gray-500 font-semibold text-lg">Discover MYSTORE</p>
+                <h1 className="font-bold text-4xl">MYSTORE DELIVERS<br></br>TO YOU</h1>
+                <p className="text-sm w-3/4">Wordwild shipping. We ship over 100 countries and regions, right to your doorstep.</p>
+                <div><button className="bg-black py-2 px-3 text-white mt-2">Learn More</button></div>
+              </div>
+              <div className="hidden md:flex flex-col justify-end">
+                <Image src="/dogImage.svg" width={500} height={500} />
+              </div>
+        </div>
+        {/**Best Products & Deals */}
+        <div className="flex items-center gap-3 mt-10">
+          <h2
+            style={{ whiteSpace: "nowrap" }}
+            className="block text-xl font-semibold"
+          >
+            Best Products & Deals
+          </h2>
+          <div className="bg-black w-full" style={{ height: "1px" }}></div>
         </div>
       </div>
       {/** <Footer />*/}
