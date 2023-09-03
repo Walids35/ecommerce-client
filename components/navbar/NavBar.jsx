@@ -58,6 +58,7 @@ export default function NavBar() {
         try {
           const response = await axios.get(`/api/search?searchQuery=${searchQuery}`);
           const data = response.data;
+          console.log(response);
           setSearchResults(data);
           setShowResults(true);
         } catch (error) {
@@ -102,7 +103,7 @@ export default function NavBar() {
         {showResults && (
           <div className="absolute top-full mt-2 bg-white w-full border border-gray-300 rounded-md shadow-lg z-10">
             <p className="px-4 py-2 text-sm">Search Results (Found out {searchResults.length} elements)</p>
-            {searchResults?.slice(0,6).map((product) => (
+            {searchResults?.length > 0 && searchResults.slice(0,6).map((product) => (
               <div key={product._id} className=" hover:bg-full-white border border-b-2 ">
                 <Link href={`/product/${product._id}`} onClick={() => setSearchQuery("")} className="flex px-4 py-4 items-center">
                 <img
