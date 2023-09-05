@@ -171,7 +171,7 @@ export default function page() {
               <p>Filtering</p>
               <p>&rsaquo;</p>
             </button>
-            <div className={toggle ? "mt-5 flex gap-8" : "mt-5 gap-8 hidden"}>
+            <div className={toggle ? "mt-5 gap-3 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6" : "mt-5 gap-8 hidden"}>
               {propertiesToFill.map((property, index) => {
                 return (
                   <>
