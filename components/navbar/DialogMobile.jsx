@@ -1,37 +1,44 @@
 import { Dialog, Disclosure } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {ChevronDownIcon} from "@heroicons/react/20/solid";
-import { CpuChipIcon, ComputerDesktopIcon, RectangleGroupIcon, TvIcon, DevicePhoneMobileIcon } from '@heroicons/react/24/solid'
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import {
+  CpuChipIcon,
+  ComputerDesktopIcon,
+  RectangleGroupIcon,
+  TvIcon,
+  DevicePhoneMobileIcon,
+} from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 const products = [
   {
     name: "Ordinateur Portable",
     description: "PC Portable - PC Portable Pro - PC Portable Gamer",
-    href: "##",
+    href: "/category/64b5771bc77e31b3067398f9",
     icon: ComputerDesktopIcon,
   },
   {
     name: "Accessoires et Peripheriques",
     description: "Headphones - Sacoche - Mouse - Keyboard",
-    href: "##",
+    href: "/category/64b5bf7e9675ed81b8afb815",
     icon: RectangleGroupIcon,
   },
   {
     name: "Ordinateur de Bureau",
     description: "Ecran - PC de Bureau - PC de Bureau Gamer",
-    href: "##",
+    href: "/category/ordinateur-de-bureau",
     icon: TvIcon,
   },
   {
     name: "Composants Informatique",
     description: "Disque Dur - Carte Mere - Carte Graphique",
-    href: "##",
+    href: "/category/composants-informatiques",
     icon: CpuChipIcon,
   },
   {
     name: "Telephonie",
     description: "Telephone Portable et Smartphone",
-    href: "##",
+    href: "/category/649859618d58b1d82eae1708",
     icon: DevicePhoneMobileIcon,
   },
 ];
@@ -103,6 +110,21 @@ const DialogMobile = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                   All Products
                 </a>
               </div>
+            </div>
+            <div className="w-full flex flex-row gap-2 justify-center items-end" style={{height:"70vh"}}>
+                  <Link href="/wishlist"
+                    type="button"
+                    className="rounded-md w-full text-center py-2 border-black border-2"
+                  >
+                    Wishlist
+                  </Link>
+                  <Link
+                  href="/cart"
+                    type="button"
+                    className="rounded-md w-full text-center py-2 bg-black border-2 text-white"
+                  >
+                    Cart
+                  </Link>
             </div>
           </div>
         </Dialog.Panel>
