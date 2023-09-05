@@ -264,6 +264,27 @@ export default function page() {
                 </>
               ))}
         </div>
+
+        <div className="mt-5 flex justify-center">
+        <div className="flex gap-2">
+                {Array.from({ length: pages }, (_, index) => (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => handlePagination(index + 1)}
+                      key={index}
+                      className={
+                        actualPage == index + 1
+                          ? "px-2 py-1 border text-white bg-blue hover:bg-ring-blue"
+                          : "px-2 py-1 bg-white border hover:bg-blue hover:text-white {}"
+                      }
+                    >
+                      {index + 1}
+                    </button>
+                  </>
+                ))}
+              </div>
+        </div>
       </div>
       <Footer />
     </>
