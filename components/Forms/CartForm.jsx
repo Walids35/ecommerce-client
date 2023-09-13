@@ -28,7 +28,6 @@ const CartForm = () => {
     };
 
     try{
-        console.log(data)
         setValidation(true)
         const response = await axios.post("/api/checkout", data)
         const url = response.data.url

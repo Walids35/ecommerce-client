@@ -51,7 +51,6 @@ export default function page() {
           }
           value.split(",").map((v) => {
             v.trim()
-            console.log(v)
             data.properties[key].push(v);
           })
         } else {
@@ -65,7 +64,6 @@ export default function page() {
       try {
         console.log("Sended Data to '/api/product': ", data);
         const response = await axios.post(`/api/product`, data);
-        console.log(response.data);
         setProducts(response.data.products);
         setPages(response.data.totalPages);
         setTotalProducts(response.data.totalProducts);

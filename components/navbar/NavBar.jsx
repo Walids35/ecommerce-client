@@ -58,7 +58,6 @@ export default function NavBar() {
         try {
           const response = await axios.get(`/api/search?searchQuery=${searchQuery}`);
           const data = response.data;
-          console.log(response);
           setSearchResults(data);
           setShowResults(true);
         } catch (error) {
