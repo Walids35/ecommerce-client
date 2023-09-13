@@ -115,11 +115,13 @@ const DialogMobile = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                   <Link href="/wishlist"
                     type="button"
                     className="rounded-md w-full text-center py-2 border-black border-2"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     Wishlist
                   </Link>
                   <Link
                   href="/cart"
+                  onClick={() => setMobileMenuOpen(false)}
                     type="button"
                     className="rounded-md w-full text-center py-2 bg-black border-2 text-white"
                   >
