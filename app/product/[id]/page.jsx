@@ -174,7 +174,7 @@ const page = () => {
         )}
         <div>
           <h1 className="mt-10 font-bold text-3xl">Similar Products</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 mt-10 gap-10">
+          <div className="border-2 border-gray-300 p-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 mt-10 gap-10">
             {similarProducts.length > 0 && similarProducts.map((product, index) => {
               return (
                 <>
@@ -186,13 +186,13 @@ const page = () => {
                             product.images ? product.images[0] : product.title
                           }
                           alt=""
-                          className="h-32"
+                          className="h-24"
                         />
                       </Link>
                     </div>
                     <div className="flex justify-between mt-5">
                       <Link href={`/product/${product._id}`}>
-                        <h1 className="font-bold text-xl">{product.title}</h1>
+                        <h1 className="font-medium text-base">{product.title}</h1>
                       </Link>
                       <p className="font-semibold text-lg text-blue">
                         {product.price}£
