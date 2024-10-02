@@ -33,7 +33,6 @@ const Footer = () => {
             <div className="flex flex-col gap-2 mt-5 text-sm">
               <p>Facebook</p>
               <p>Twitter</p>
-              <p>Smartphones</p>
               <p>Instagram</p>
             </div>
           </div>
