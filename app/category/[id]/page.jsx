@@ -208,8 +208,8 @@ export default function page() {
                 );
               })}
             </div>
-            <div className="border items-center border-black px-2 py-1 w-full mt-3 flex justify-between">
-              <p>Display 1-8 of {totalProducts} products</p>
+            <div className="text-sm md:text-base border items-center border-black px-2 py-1 w-full mt-3 flex justify-between">
+              <p className="hidden md:block">Display 1-8 of {totalProducts} products</p>
               <div className="flex gap-2">
                 {Array.from({ length: pages }, (_, index) => (
                   <>
