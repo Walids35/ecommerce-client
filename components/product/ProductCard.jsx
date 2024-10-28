@@ -42,7 +42,7 @@ const ProductCard = ({ key, product }) => {
 
   return (
     <>
-      <div key={key} className="h-[500px]">
+      <div key={key}>
         <div className="flex flex-col justify-between h-full">
         <div className="relative bg-full-white border border-blue justify-center  flex  py-10 ">
           <Link href={`/product/${product._id}`}>
@@ -76,10 +76,6 @@ const ProductCard = ({ key, product }) => {
             {product.description.substring(0, 100)}
             <span className="text-xs text-blue ml-2 underline"><Link href={`/product/${product._id}`}>Show More</Link></span>
           </p>
-          <div className="flex items-baseline gap-2">
-            <Star count={4} />
-            <p className="text-blue">({product.reviewsNumber})</p>
-          </div>
         </div>
         <button
           onClick={() => {

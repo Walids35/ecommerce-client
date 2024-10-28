@@ -15,14 +15,11 @@ const poppins = Poppins({
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={poppins.className}>
-      <head>
-      <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"/>
-      </head>
       <body>
         <OverNav />
         <NavBar />
         <div className="pt-28">
-        {children}
+          {children}
         </div>
       </body>
     </html>
