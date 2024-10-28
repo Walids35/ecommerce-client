@@ -85,8 +85,8 @@ export default function Home() {
               <Image
                 alt=""
                 src="/categoriesImg/mac.png"
-                width={250}
-                height={250}
+                width={280}
+                height={280}
               />
             </div>
             <p className="font-medium text-xl">Ordinateur Portable</p>
@@ -128,9 +128,9 @@ export default function Home() {
         </div>
         {/**Promo Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-10">
-          <div className="bg-gray-200 flex justify-center items-center py-4 md:py-2 xl:py-0">
-            <div className="ml-8">
-              <h2 className="font-bold text-2xl">MY STORE BASICS</h2>
+          <div className="bg-gray-200 flex justify-center items-center p-4">
+            <div>
+              <h2 className="font-bold text-xl md:text-2xl">MY STORE BASICS</h2>
               <p className="w-3/4 text-sm mt-2">
                 Shop today's Deals, Lightning Deals, and limited-time discounts
               </p>
@@ -151,9 +151,9 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="bg-gray-200 pl-10 flex justify-start items-center py-4 md:py-2 xl:py-0">
+          <div className="bg-gray-200 flex justify-start items-center p-4 md:px-6">
             <div className="">
-              <h2 className="font-bold text-2xl">Deals & Promotions</h2>
+              <h2 className="font-bold text-xl md:text-2xl">Deals & Promotions</h2>
               <p className="w-full text-sm mt-2">
                 Shop today's Deals, Lightning Deals, and limited-time discounts
               </p>
@@ -168,12 +168,12 @@ export default function Home() {
           </div>
         </div>
         {/**Discover Card */}
-        <div className="bg-gray-200 h-80 px-5 pt-5 flex justify-center mt-10">
+        <div className="bg-gray-200 p-5 flex justify-center mt-10">
           <div className="flex flex-col justify-center gap-3">
             <p className="text-gray-500 font-semibold text-lg">
               Discover MYSTORE
             </p>
-            <h1 className="font-bold text-4xl">
+            <h1 className="font-bold text-2xl md:text-4xl">
               MYSTORE DELIVERS<br></br>TO YOU
             </h1>
             <p className="text-sm w-3/4">
@@ -207,12 +207,12 @@ export default function Home() {
             })}
         </div>
         {/**Subscribe Card */}
-        <div className="bg-gray-200 h-80 px-5 pt-5 flex justify-around mt-10">
+        <div className="bg-gray-200 p-5 flex justify-around mt-5">
           <div className="flex flex-col justify-center gap-3">
             <p className="text-gray-500 font-semibold text-lg">
               Discover MYSTORE
             </p>
-            <h1 className="font-bold text-4xl">
+            <h1 className="font-bold text-2xl md:text-4xl">
               SUBSCRIBE TO<br></br>THE NEWS
             </h1>
             <p className="text-sm">
