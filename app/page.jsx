@@ -50,9 +50,9 @@ export default function Home() {
   return (
     <>
       <div className="p-10">
-        <div className="relative" style={{ height: "88vh" }}>
+        <div className="relative">
           <FrontCard />
-          <div className="bottom-0 md:bottom-10 xl:bottom-20 2xl:bottom-32 absolute w-full md:w-3/4 left-1/2 transform -translate-x-1/2">
+          <div className="w-full">
             <div className="p-4 sm:p-8 md:p-10 bg-black flex flex-col items-start gap-5 md:gap-0 md:flex-row md:justify-around md:items-center ">
               {FeaturesArray.map((value, index) => {
                 return (

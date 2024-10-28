@@ -18,7 +18,7 @@ const FrontCard = () => {
           </button>
         </div>
         <div className="p-10 hidden xl:flex">
-          <Image src="/card.svg" alt=""  width={800} height={800} />
+          <Image src="/card.png" alt=""  width={800} height={800} />
         </div>
       </div>
     </>
