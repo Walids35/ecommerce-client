@@ -9,17 +9,16 @@ export const metadata = {
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ['latin'],
-  display: 'swap',
 })
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={poppins.className}>
+    <html lang="en" >
       <body>
         <OverNav />
         <NavBar />
         <div className="pt-28">
-          {children}
+          <main className={poppins.className}>{children}</main>
         </div>
       </body>
     </html>
