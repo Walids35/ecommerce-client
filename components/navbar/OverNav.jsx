@@ -3,7 +3,7 @@ import {PhoneIcon} from "@heroicons/react/24/solid"
 const OverNav = () => {
   return (
     <>
-    <div className="fixed z-10 w-screen flex justify-around text-white bg-blue py-2">
+    <div className="fixed z-20 w-screen flex justify-around text-white bg-blue py-2">
       <div className="flex gap-2">
         <PhoneIcon className="w-3" />
         <p className="text-xs sm:text-sm">+216 92 434 069</p>
