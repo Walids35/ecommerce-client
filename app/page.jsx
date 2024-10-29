@@ -12,6 +12,7 @@ import ProductCard from "@/components/product/ProductCard";
 import Footer from "@/components/footer/Footer";
 import { motion, useScroll } from "framer-motion";
 import Link from "next/link";
+import NewlettersDrawer from "@/components/NewlettersDrawer";
 
 const FeaturesArray = [
   {
@@ -50,6 +51,7 @@ export default function Home() {
   return (
     <>
       <div className="p-10">
+        <NewlettersDrawer  />
         <div className="relative">
           <FrontCard />
           <div className="w-full">
