@@ -14,11 +14,11 @@ const poppins = Poppins({
 export default function RootLayout({ children }) {
   return (
     <html lang="en" >
-      <body>
+      <body className={poppins.className}>
         <OverNav />
         <NavBar />
         <div className="pt-28">
-          <main className={poppins.className}>{children}</main>
+          <main>{children}</main>
         </div>
       </body>
     </html>
