@@ -59,7 +59,6 @@ const WishlistComponent = () =>{
             </div>
           </div>
         </div>
-        <Footer />
         </>
       );
   

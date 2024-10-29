@@ -6,7 +6,7 @@ const Loading = () => {
       >
         <img
           src="/mini-logo.svg"
-          className="w-12 animate-bounce" // Apply the animation class here
+          className="w-12 animate-bounce"
           alt="Loading Logo"
         />
       </div>

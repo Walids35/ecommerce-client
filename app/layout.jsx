@@ -1,3 +1,4 @@
+import Footer from "@/components/footer/Footer";
 import "./globals.css";
 import NavBar from "@/components/navbar/NavBar";
 import OverNav from "@/components/navbar/OverNav";
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
         <div className="pt-28">
           <main>{children}</main>
         </div>
+        <Footer />
       </body>
     </html>
   );

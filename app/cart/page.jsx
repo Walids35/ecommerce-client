@@ -1,5 +1,4 @@
 "use client";
-import Footer from "@/components/footer/Footer";
 import ProductCart from "@/components/product/ProductCart";
 import Link from "next/link";
 import { TruckIcon, GiftIcon } from "@heroicons/react/24/outline";
@@ -161,7 +160,6 @@ const CartComponent = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
