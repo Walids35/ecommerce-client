@@ -7,6 +7,7 @@ import CartForm from "@/components/Forms/CartForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 
 const CartComponent = () => {
@@ -157,6 +158,7 @@ const CartComponent = () => {
                 Free Delivery From 200£ Shopping Cart
               </p>
             </div>
+            <Image className="mt-5" src="/imagepc.jpg" alt="image-pc" width={300} height={300} />
           </div>
         </div>
       </div>

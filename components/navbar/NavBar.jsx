@@ -79,7 +79,7 @@ export default function NavBar() {
 
   return (
     <div className="fixed z-10 w-full flex justify-center bg-white drop-shadow-md mx-auto">
-      <div className="py-5 mt-10 flex items-center md:gap-10 w-full max-w-5xl">
+      <div className="py-5 mt-10 flex  items-center md:gap-10 mx-auto max-w-5xl">
         <img src="/logo.png" className="hidden sm:flex w-32" alt="logo" />
         <Link
           className="hidden sm:block text-sm font-semibold leading-6 text-gray-900 hover:text-blue"
