@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "@/components/navbar/NavBar";
 import OverNav from "@/components/navbar/OverNav";
 import { Poppins } from 'next/font/google'
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = {
   title: "MY STORE | HOME"
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
         <NavBar />
         <div className="pt-28">
           <main>{children}</main>
+          <Analytics />
         </div>
         <Footer />
       </body>
