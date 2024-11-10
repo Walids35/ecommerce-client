@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 async function connectToRabbitMQ(email) {
   try {
     const connection = await amqp.connect(
-      process.env.RABBITHOST || "amqp://localhost"
+      process.env.RABBITHOST
     );
     const channel = await connection.createChannel();
     const queue = "newsletter_notifications";
