@@ -1,24 +1,26 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const NewlettersDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // Open the popup after 5 seconds
+  const [email, setEmail] = useState("");
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsOpen(true);
-      document.body.classList.add("overflow-hidden"); // Disable background scroll
+      document.body.classList.add("overflow-hidden");
     }, 2000);
 
     return () => {
-      clearTimeout(timer); // Clear timer if component unmounts
-      document.body.classList.remove("overflow-hidden"); // Re-enable background scroll
+      clearTimeout(timer); 
+      document.body.classList.remove("overflow-hidden"); 
     };
   }, []);
 
   const closePopup = () => {
     setIsOpen(false);
-    document.body.classList.remove("overflow-hidden"); // Re-enable background scroll
+    document.body.classList.remove("overflow-hidden"); 
   };
 
   function onSubmit(e) {
@@ -66,8 +68,17 @@ const NewlettersDrawer = () => {
                     placeholder="Enter your email"
                     className="border border-gray-300 p-2 w-60"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  <button type="submit" className="bg-black text-white px-3 py-2 mt-2 hover:bg-gray-900">
+                  <button
+                    type="submit"
+                    className="bg-black text-white px-3 py-2 mt-2 hover:bg-gray-900"
+                    onClick={async () => {
+                      await axios.post("/api/email", { email });
+                      setEmail("");
+                    }}
+                  >
                     Subscribe
                   </button>
                 </form>
