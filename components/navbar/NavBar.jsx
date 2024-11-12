@@ -12,6 +12,8 @@ import {
 import { useStore } from "../../store/store";
 import axios from "axios";
 import { useWishList } from "@/store/wishlist";
+import { useRouter } from "next/navigation"; 
+
 
 const useClickOutside = (ref, handler) => {
   useEffect(() => {
@@ -54,6 +56,7 @@ export default function NavBar() {
   const [showResults, setShowResults] = useState(false);
   const [displayEmptyResults, setDisplayEmptyResults] = useState(false);
   const searchBarRef = useRef(null);
+  const router = useRouter();
 
   const debouncedQuery = useDebounce(searchQuery, 500); 
 
@@ -97,6 +100,11 @@ export default function NavBar() {
       setShowResults(true);
     }
   };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && searchQuery.trim() !== "") {
+      router.push(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   return (
     <div className="fixed z-10 w-full flex justify-center bg-white drop-shadow-md mx-auto">
@@ -108,7 +116,7 @@ export default function NavBar() {
 
         <div className="relative rounded-full bg-white sm:col-span-3" ref={searchBarRef}>
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400"  />
           </div>
           <input
             type="text"
@@ -117,6 +125,7 @@ export default function NavBar() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={handleFocus}
+            onKeyDown={handleKeyDown}
           />
 
           {showResults && (
